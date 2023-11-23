@@ -29,9 +29,9 @@
                         @php $i++ @endphp
                     @endforeach
                 </table>
-                <div class="d-flex justify-content-center">
+                {{-- <div class="d-flex justify-content-center">
                     {{ $color->links() }}
-                </div>
+                </div> --}}
             </div>
           </div>
         </div>
