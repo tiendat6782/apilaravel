@@ -1,0 +1,76 @@
+@extends('admin.index')
+
+
+@section('content')
+<div class="row">
+    <div class="col-lg-8 d-flex align-items-strech">
+        <div class="card w-100">
+          <div class="card-body">
+            <h3>Danh sách màu.</h3>
+            <div>
+                <table class="table">
+                    <thead>
+                        <th>#</th>
+                        <th>Màu</th>
+                        <th>Mô tả</th>
+                        <th>Hành động</th>
+                    </thead>
+                    @php $i = 1 @endphp
+                    @foreach ($color as $item)
+                        <tr>
+                            <td>{{ $i }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->description }}</td>
+                            <td>
+                                <a href="" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="{{ route('admin.color.destroy',['id' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá màu này.')" class="text-danger"><i class="ti ti-trash"></i></a>
+                            </td>
+                        </tr>
+                        @php $i++ @endphp
+                    @endforeach
+                </table>
+                <div class="d-flex justify-content-center">
+                    {{ $color->links() }}
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Yearly Breakup -->
+            <div class="card overflow-hidden">
+              <div class="card-body p-4">
+                <h5 class="card-title mb-9 fw-semibold">
+                  Thêm màu.
+                </h5>
+                <div class="row align-items-center">
+                    {{-- form --}}
+                 <form action="{{ route('admin.color.store') }}" method="post" >
+                    @csrf
+                    <div class="form-floating mb-3">
+                        <input type="text" name="name" class="form-control" id="floatingInput" placeholder="Nhập tên màu" value="{{ old('name') }}">
+                        <label for="floatingInput">Tên màu @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror </label>
+                      </div>
+                      <div class="form-floating">
+                        <input type="text" name="description" class="form-control" id="floatingPassword" placeholder="Mô tả ngắn" value="{{ old('description') }}">
+                        <label for="floatingPassword">Mô tả ngắn @error('description')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror</label>
+                      </div>
+                      <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary">Thêm</button>
+                      </div>
+                 </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+</div>
+@endsection
