@@ -33,19 +33,36 @@ class SizeController extends Controller
         $size->save();
         return redirect()->route('admin.size.index')->with(['msg' => 'Màu đã được thêm.']);
     }
+
+    public function edit(Request $request, string $id)
+    {
+        $size = Size::find($id);
+        return view('admin.size.update', compact('size'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $size = Size::find($id);
+
+        // Kiểm tra xem có tồn tại danh mục không
+        if ($size) {
+            // Cập nhật thông tin của danh mục
+            $size->name = $request->input('name');
+            $size->description = $request->input('description');
+            // Lưu thay đổi vào cơ sở dữ liệu
+            $size->save();
+        } else {
+            return redirect()->route('admin.size.index')->with(['msg' => 'Có gì đó không đúng! Xin thử lại']);
+        }
+        return redirect()->route('admin.size.index')->with(['msg' => 'Sửa thành công']);
+    }
     public function destroy($id)
     {
         if ($id) {
-            // Kiểm tra xem 'size_id' có tồn tại trong bảng 'attributes' hay không
-            // $exists = Attribute::where('color_id', $id)->exists();
 
-            // if ($exists) {
-            //     return redirect()->back()->with(['msg' => 'Color is associated with attributes. Cannot delete.']);
-            // }
-            // Xóa bản ghi trong bảng 'size'
             DB::table('size')->where('id', $id)->delete();
 
-            return redirect()->back();
+            return redirect()->route('admin.size.index')->with(['msg' => 'Xoá thành công']);
         }
     }
 }

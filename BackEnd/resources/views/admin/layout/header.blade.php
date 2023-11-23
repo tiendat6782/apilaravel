@@ -3,9 +3,9 @@
       <div
         class="brand-logo d-flex align-items-center justify-content-between"
       >
-        <a href="./index.html" class="text-nowrap logo-img">
+        <a href="{{ route('dashboard') }}" class="text-nowrap logo-img">
           <img
-            src="../assets/images/logos/dark-logo.svg"
+            src="{{ asset('/assets/images/logos/logo.png') }}"
             width="180"
             alt=""
           />
@@ -89,7 +89,7 @@
           <li class="sidebar-item">
             <a
               class="sidebar-link"
-              href="./authentication-login.html"
+              href="{{ route('admin.user.index') }}"
               aria-expanded="false"
             >
               <span>
@@ -101,7 +101,7 @@
           <li class="sidebar-item">
             <a
               class="sidebar-link"
-              href="./authentication-register.html"
+              href="{{ route('admin.role.index') }}"
               aria-expanded="false"
             >
               <span>
@@ -117,7 +117,7 @@
           <li class="sidebar-item">
             <a
               class="sidebar-link"
-              href="./icon-tabler.html"
+              href="{{ route('admin.order.index') }}"
               aria-expanded="false"
             >
               <span>

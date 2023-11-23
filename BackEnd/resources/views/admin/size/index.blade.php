@@ -24,7 +24,7 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->description }}</td>
                             <td>
-                                <a href="" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="{{ route('admin.size.edit',['id' => $item->id]) }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="{{ route('admin.size.destroy',['id' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá size này.')" class="text-danger"><i class="ti ti-trash"></i></a>
                             </td>
                         </tr>
@@ -64,7 +64,7 @@
                         @enderror </label>
                       </div>
                       <div class="form-floating">
-                        <input type="text" name="description" class="form-control" id="floatingPassword" placeholder="Mô tả ngắn" value="{{ old('description') }}">
+                        <textarea name="description" class="form-control" id="floatingPassword" placeholder="Mô tả ngắn">{{ old('description') }}</textarea>
                         <label for="floatingPassword">Mô tả ngắn @error('description')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror</label>

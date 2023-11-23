@@ -70,7 +70,7 @@
                             <p class="mb-0 fs-3">My Task</p>
                           </a>
                           <a
-                            href="./authentication-login.html"
+                            href=""
                             class="btn btn-outline-primary mx-3 mt-2 d-block"
                             >Logout</a
                           >

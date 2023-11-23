@@ -33,19 +33,36 @@ class CategoryController extends Controller
         $category->save();
         return redirect()->route('admin.category.index')->with(['msg' => 'Danh mục đã được thêm.']);
     }
+
+    public function edit(Request $request, string $id)
+    {
+        $category = Category::find($id);
+        return view('admin.category.update', compact('category'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $category = Category::find($id);
+
+        // Kiểm tra xem có tồn tại danh mục không
+        if ($category) {
+            // Cập nhật thông tin của danh mục
+            $category->name = $request->input('name');
+            $category->description = $request->input('description');
+            // Lưu thay đổi vào cơ sở dữ liệu
+            $category->save();
+        } else {
+            return redirect()->route('admin.category.index')->with(['msg' => 'Có gì đó không đúng! Xin thử lại']);
+        }
+        return redirect()->route('admin.category.index')->with(['msg' => 'Sửa thành công']);
+    }
+
+
     public function destroy($id)
     {
         if ($id) {
-            // Kiểm tra xem 'size_id' có tồn tại trong bảng 'attributes' hay không
-            // $exists = Attribute::where('category_id', $id)->exists();
-
-            // if ($exists) {
-            //     return redirect()->back()->with(['msg' => 'category is associated with attributes. Cannot delete.']);
-            // }
-            // Xóa bản ghi trong bảng 'size'
             DB::table('categories')->where('id', $id)->delete();
-
-            return redirect()->back();
+            return redirect()->route('admin.category.index')->with(['msg' => 'Xoá thành công']);
         }
     }
 }
