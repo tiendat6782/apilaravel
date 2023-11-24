@@ -32,7 +32,7 @@ class CategoryController extends Controller
         $category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->save();
-        return redirect()->route('admin.category.index')->with(['msg' => 'Danh mục đã được thêm.']);
+        return redirect()->route('admin.category.index')->with(['success' => 'Danh mục đã được thêm.']);
     }
 
     public function edit(Request $request, string $id)
@@ -53,9 +53,9 @@ class CategoryController extends Controller
             // Lưu thay đổi vào cơ sở dữ liệu
             $category->save();
         } else {
-            return redirect()->route('admin.category.index')->with(['msg' => 'Có gì đó không đúng! Xin thử lại']);
+            return redirect()->route('admin.category.index')->with(['error' => 'Có gì đó không đúng! Xin thử lại']);
         }
-        return redirect()->route('admin.category.index')->with(['msg' => 'Sửa thành công']);
+        return redirect()->route('admin.category.index')->with(['success' => 'Sửa thành công']);
     }
 
 
@@ -64,11 +64,11 @@ class CategoryController extends Controller
         if ($id) {
             $exists = Product::where('category_id', $id)->exists();
             if ($exists) {
-                return redirect()->route('admin.category.index')->with(['msg' => 'Danh mục này đang tồn tại trong sản phẩm, lên không thể xoá!']);
+                return redirect()->route('admin.category.index')->with(['error' => 'Danh mục này đang tồn tại trong sản phẩm, lên không thể xoá!']);
             }
 
             DB::table('categories')->where('id', $id)->delete();
-            return redirect()->route('admin.category.index')->with(['msg' => 'Xoá thành công']);
+            return redirect()->route('admin.category.index')->with(['success' => 'Xoá thành công']);
         }
     }
 }

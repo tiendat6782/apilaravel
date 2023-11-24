@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Size;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +32,7 @@ class SizeController extends Controller
         $size->name = $request->input('name');
         $size->description = $request->input('description');
         $size->save();
-        return redirect()->route('admin.size.index')->with(['msg' => 'Màu đã được thêm.']);
+        return redirect()->route('admin.size.index')->with(['success' => 'Màu đã được thêm.']);
     }
 
     public function edit(Request $request, string $id)
@@ -52,17 +53,20 @@ class SizeController extends Controller
             // Lưu thay đổi vào cơ sở dữ liệu
             $size->save();
         } else {
-            return redirect()->route('admin.size.index')->with(['msg' => 'Có gì đó không đúng! Xin thử lại']);
+            return redirect()->route('admin.size.index')->with(['error' => 'Có gì đó không đúng! Xin thử lại']);
         }
-        return redirect()->route('admin.size.index')->with(['msg' => 'Sửa thành công']);
+        return redirect()->route('admin.size.index')->with(['success' => 'Sửa thành công']);
     }
     public function destroy($id)
     {
         if ($id) {
-
+            $exists = Variant::where('size_id', $id)->exists();
+            if ($exists) {
+                return redirect()->route('admin.size.index')->with(['error' => 'Size này đang tồn tại trong sản phẩm, lên không thể xoá!']);
+            }
             DB::table('size')->where('id', $id)->delete();
 
-            return redirect()->route('admin.size.index')->with(['msg' => 'Xoá thành công']);
+            return redirect()->route('admin.size.index')->with(['success' => 'Xoá thành công']);
         }
     }
 }

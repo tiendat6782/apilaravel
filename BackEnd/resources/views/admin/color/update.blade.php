@@ -21,10 +21,9 @@
                         <th>Tên màu</th>
                         <th>Mô tả</th>
                     </thead>
-                        <tr>
+                        <tr class="align-middle">
                             <td>{{ $color->name }}</td>
                             <td>{{ $color->description }}</td>
-                        
                         </tr>
                 </table>
                 <div class="text-end ">

@@ -49,8 +49,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/destroy/{id}', 'destroy')->name('admin.product.destroy'); //xoá sản phẩm
 
         //variant
+        //create
         Route::get('variant/{id}', 'variant')->name('product.variant');
         Route::post('variant/{id}/store', 'createVariant')->name('variant.store');
+        //update
+        Route::get('variant/{id}/edit/{variantId}', 'editVariant')->name('variant.edit');
+        Route::post('variant/{id}/update/{variantId}', 'updateVariant')->name('variant.update');
+        Route::get('variant/{id}/delete/{variantId}', 'deleteVariant')->name('variant.delete');
+
     });
 
     //size

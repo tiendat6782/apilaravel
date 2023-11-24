@@ -2,6 +2,7 @@
 
 
 @section('content')
+
 <div class="row">
   <div class="col-lg-8 d-flex align-items-strech">
     <div class="card w-100">
@@ -19,7 +20,7 @@
                     @isset($product)
                       @if ($product->count()>0)
                           @foreach ($product as $item)
-                            <tr>
+                            <tr class="align-middle">
                               <td>{{ $i }}</td>
                               <td>{{ $item->getCate() }}</td>
                               <td>{{ $item->name }}</td>
@@ -47,20 +48,28 @@
     </div>
   <div class="col-lg-4">
         <div class="row">
+          
           <div class="col-lg-12">
-            <!-- Monthly Earnings -->
-            <div class="card">
-              <div class="card-body">
-                <label for="">Image</label>
-                  
-                  <img id="preview" src="" alt="Image Preview"  class="img-thumbnail" style="display:none;width: 300px;height: 300px;">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <!-- Yearly Breakup -->
             <div class="card overflow-hidden">
               <div class="card-body p-4">
+                @if(session('success') || session('error'))
+                    @php
+                        $alertClass = session('success') ? 'alert-success' : 'alert-danger';
+                    @endphp
+      
+                    <div class="alert {{ $alertClass }}">
+                        {{ session('success') ?? session('error') }}
+                    </div>
+                  
+                    <script>
+                        setTimeout(function() {
+                            var alertDiv = document.querySelector('.alert');
+                            if (alertDiv) {
+                                alertDiv.style.display = 'none';
+                            }
+                        }, 4000);
+                    </script>
+                @endif
                 <h5 class="card-title mb-9 fw-semibold">
                   Thêm sản phẩm.
                 </h5>
@@ -105,7 +114,16 @@
               </div>
             </div>
           </div>
-          
+          <div class="col-lg-12">
+            <!-- Monthly Earnings -->
+            <div class="card">
+              <div class="card-body">
+                <label for="">Image</label>
+                  
+                  <img id="preview" src="" alt="Image Preview"  class="img-thumbnail" style="display:none;width: 300px;height: 300px;">
+              </div>
+            </div>
+          </div>
         </div>
     </div>
     

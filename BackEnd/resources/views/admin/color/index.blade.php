@@ -19,7 +19,7 @@
                         @if ($color->count()>0)
                         @php $i = 1 @endphp
                           @foreach ($color as $item)
-                              <tr>
+                              <tr class="align-middle">
                                   <td>{{ $i }}</td>
                                   <td>{{ $item->name }}</td>
                                   <td>{{ $item->description }}</td>
@@ -50,6 +50,24 @@
             <!-- Yearly Breakup -->
             <div class="card overflow-hidden">
               <div class="card-body p-4">
+                @if(session('success') || session('error'))
+                    @php
+                        $alertClass = session('success') ? 'alert-success' : 'alert-danger';
+                    @endphp
+      
+                    <div class="alert {{ $alertClass }}">
+                        {{ session('success') ?? session('error') }}
+                    </div>
+                  
+                    <script>
+                        setTimeout(function() {
+                            var alertDiv = document.querySelector('.alert');
+                            if (alertDiv) {
+                                alertDiv.style.display = 'none';
+                            }
+                        }, 4000);
+                    </script>
+                @endif
                 <h5 class="card-title mb-9 fw-semibold">
                   Thêm màu.
                 </h5>

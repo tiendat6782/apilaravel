@@ -50,6 +50,24 @@
             <!-- Yearly Breakup -->
             <div class="card overflow-hidden">
               <div class="card-body p-4">
+                @if(session('success') || session('error'))
+                    @php
+                        $alertClass = session('success') ? 'alert-success' : 'alert-danger';
+                    @endphp
+      
+                    <div class="alert {{ $alertClass }}">
+                        {{ session('success') ?? session('error') }}
+                    </div>
+                  
+                    <script>
+                        setTimeout(function() {
+                            var alertDiv = document.querySelector('.alert');
+                            if (alertDiv) {
+                                alertDiv.style.display = 'none';
+                            }
+                        }, 4000);
+                    </script>
+                @endif
                 <h5 class="card-title mb-9 fw-semibold">
                   Thêm danh mục.
                 </h5>
