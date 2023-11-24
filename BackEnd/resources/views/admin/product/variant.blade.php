@@ -4,6 +4,33 @@
 @section('content')
 <div class="row">
   <div class="col-lg-12 d-flex align-items-strech">
+      <div class="card w-100">
+          @if(session('success') || session('error'))
+              <div class="card-body">
+                  @php
+                      $alertClass = session('success') ? 'alert-success' : 'alert-danger';
+                  @endphp
+      
+                  <div class="alert {{ $alertClass }}">
+                      {{ session('success') ?? session('error') }}
+                  </div>
+                  
+                  <script>
+                      setTimeout(function() {
+                          var alertDiv = document.querySelector('.alert');
+                          if (alertDiv) {
+                              alertDiv.style.display = 'none';
+                          }
+                      }, 4000);
+                  </script>
+              </div>
+          @endif
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 d-flex align-items-strech">
     <div class="card w-100">
       <div class="card-body">
         <div class="row">
@@ -59,7 +86,7 @@
               @if ($variant->count() > 0)
                 @php $i = 1 @endphp
                   @foreach ($variant as $item)
-                      <tr>
+                      <tr class="align-middle">
                         <td>{{ $i }}</td>
                         <td>{{ $item->getSize() }}</td>
                         <td>{{ $item->getColor() }}</td>
@@ -69,8 +96,8 @@
                           <img src="{{ asset('storage/'.$item->image) }}" alt="" width="150px" height="150px">
                         </td>
                         <td class="align-middle">
-                          <a href="" class="text-warning "><i class="fa-solid fa-pen-to-square"></i></a> <br> <br>
-                          <a href="" onclick="return confirm('Bạn có chắc chắn xoá sản phẩm này.')" class="text-danger"><i class="ti ti-trash fs-5"></i></a>
+                          <a href="{{ route('variant.edit',['id' => $product->id, 'variantId' => $item->id]) }}" class="text-warning "><i class="fa-solid fa-pen-to-square"></i></a> <br> <br>
+                          <a href="{{ route('variant.delete', ['id' => $product->id, 'variantId' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá biến thể  này.')" class="text-danger"><i class="ti ti-trash fs-5"></i></a>
                         </td>
                       </tr>
                     @php $i++ @endphp  
@@ -117,7 +144,7 @@
                       <div class="checkbox-group mt-2">
                         @foreach ($size as $item)
                           <label class="checkbox-label mt-2">
-                              <input type="checkbox" name="size_id" class="size-checkbox" value="{{ $item->id }}" {{ old('size_id') == $item->id ? 'checked' : '' }}>
+                              <input type="radio" name="size_id" class="size-checkbox" value="{{ $item->id }}" {{ old('size_id') == $item->id ? 'checked' : '' }}>
                               {{ $item->name }}
                           </label>
                           <br>
@@ -132,7 +159,7 @@
                       <div class="checkbox-group mt-2">
                           @foreach ($color as $item)
                               <label class="checkbox-label mt-2">
-                                  <input type="checkbox" name="color_id" class="color-checkbox" value="{{ $item->id }}" {{ old('color_id') == $item->id ? 'checked' : '' }}>
+                                  <input type="radio" name="color_id" class="color-checkbox" value="{{ $item->id }}" {{ old('color_id') == $item->id ? 'checked' : '' }}>
                                   {{ $item->name }}
                               </label>
                               <br>
@@ -175,46 +202,16 @@
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-      const sizeCheckboxes = document.querySelectorAll('.size-checkbox');
-      const colorCheckboxes = document.querySelectorAll('.color-checkbox');
-
-      sizeCheckboxes.forEach(checkbox => {
-          checkbox.addEventListener('change', function () {
-              if (this.checked) {
-                  sizeCheckboxes.forEach(otherCheckbox => {
-                      if (otherCheckbox !== this) {
-                          otherCheckbox.checked = false;
-                      }
-                  });
-              }
-          });
-      });
-
-      colorCheckboxes.forEach(checkbox => {
-          checkbox.addEventListener('change', function () {
-              if (this.checked) {
-                  colorCheckboxes.forEach(otherCheckbox => {
-                      if (otherCheckbox !== this) {
-                          otherCheckbox.checked = false;
-                      }
-                  });
-              }
-          });
-      });
-  });
   function previewImage() {
       var input = document.getElementById('image');
       var preview = document.getElementById('preview');
 
       if (input.files && input.files[0]) {
           var reader = new FileReader();
-
           reader.onload = function (e) {
               preview.style.display = 'block';
               preview.src = e.target.result;
           };
-
           reader.readAsDataURL(input.files[0]);
       }
   }

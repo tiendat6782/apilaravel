@@ -97,8 +97,8 @@
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 </html>
 
-@if (session('msg'))
+{{-- @if (session('msg'))
     <script>
         alert("{{ session('msg') }}")
     </script>
-@endif
+@endif --}}

@@ -52,7 +52,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->image = $image;
         $product->save();
-        return redirect()->route('admin.product.index')->with(['msg' => 'Sản phẩm đã được thêm.']);
+        return redirect()->route('admin.product.index')->with(['success' => 'Sản phẩm đã được thêm.']);
     }
 
     // sửa sản phẩm
@@ -63,50 +63,6 @@ class ProductController extends Controller
         $product = Product::find($id);
         return view('admin.product.update', compact('category', 'product'));
     }
-    // public function update(Request $request, string $id)
-    // {
-    //     $request->validate(
-    //         [
-    //             'name' => 'required',
-    //             'description' => 'required|string',
-    //             'category_id' => 'required|exists:categories,id',
-    //             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Remove 'required' constraint for image
-    //         ],
-    //         [
-    //             'name.required' => 'Not empty. Please enter name',
-    //             'description.required' => 'Not empty. Please enter description',
-    //             'image.image' => 'Only enter file image',
-    //             'image.mimes' => 'Only enter jpeg, png, jpg, gif',
-    //             'image.max' => 'Image < 2Mb',
-    //         ]
-    //     );
-
-    //     $product = Product::find($id);
-
-    //     // If a new image is provided, update it
-    //     if ($request->hasFile('image')) {
-    //         $oldImage = $product->image;
-
-    //         // Delete the old image
-    //         Storage::delete('/public/' . $oldImage);
-
-    //         // Upload and store the new image
-    //         $image = uploadFile('hinh', $request->file('image'));
-    //     } else {
-    //         // If no new image is provided, keep the old image
-    //         $image = $product->image;
-    //     }
-
-    //     // Update the product with the new information using Eloquent
-    //     $product->update([
-    //         'category_id' => $request->category_id,
-    //         'name' => $request->name,
-    //         'description' => $request->description,
-    //         'image' => $image,
-    //     ]);
-
-    //     return redirect()->route('admin.product.index')->with(['msg' => 'Cập nhật sản phẩm thành công!']);
-    // }
 
     public function update(Request $request, string $id)
     {
@@ -141,25 +97,28 @@ class ProductController extends Controller
             "description" => $request->description,
             "image" => $image,
         ]);
-        return redirect()->route('admin.product.index')->with(['msg' => 'Cập nhật sản phẩm thành công!']);
+        return redirect()->route('admin.product.index')->with(['success' => 'Cập nhật sản phẩm thành công!']);
     }
     //xoá
     public function destroy($id)
     {
-        $product = Product::find($id);
 
-        if ($product) {
-            // Delete the associated image from storage
-            $imagePath = '/public/' . $product->image;
-            Storage::delete($imagePath);
 
-            // Delete the record from the database
-            $product->delete();
+        if ($id) {
+            $exists = Variant::where('product_id', $id)->exists();
 
-            return redirect()->route('admin.product.index')->with(['msg' => 'Xoá thành công']);
-        } else {
-            // Handle the case where the record doesn't exist
-            return redirect()->route('admin.product.index')->with(['msg' => 'Không tìm thấy sản phẩm']);
+            if ($exists) {
+                return redirect()->back()->with(['error' => 'Không thể xoá, sản phẩm có nhiều dữ liệu']);
+            }
+            $image = DB::table('products')
+                ->where('id', $id)
+                ->select('image')
+                ->first()->image;
+
+            Storage::delete('/public/' . $image);
+            DB::table('products')->where('id', $id)->delete();
+
+            return redirect()->route('admin.product.index')->with(['success' => 'Xoá thành công']);
         }
     }
 
@@ -167,7 +126,7 @@ class ProductController extends Controller
     //variant
     public function variant($id)
     {
-        $variant = Variant::all();
+        $variant = Variant::where('product_id', $id)->get();
         $size = Size::all();
         $color = Color::all();
         $product = Product::find($id);
@@ -185,6 +144,14 @@ class ProductController extends Controller
             'quantity' => 'required|numeric',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        $existingVariant = Variant::where('product_id', $product->id)
+            ->where('size_id', $request->size_id)
+            ->where('color_id', $request->color_id)
+            ->first();
+
+        if ($existingVariant) {
+            return redirect()->back()->with(['error' => 'Biến thể đã tồn tại']);
+        }
         if ($request->hasFile('image')) {
             $image = uploadFile('hinh', $request->file('image'));
         }
@@ -196,6 +163,84 @@ class ProductController extends Controller
         $variant->quantity = $request->quantity;
         $variant->image = $image;
         $variant->save();
-        return redirect()->back()->with(['msg' => 'Thêm biến thể thành công']);
+        return redirect()->back()->with(['success' => 'Thêm biến thể thành công']);
     }
+
+    public function editVariant(Request $request, string $id, string $variantId)
+    {
+        $size = Size::all();
+        $color = Color::all();
+        $product = Product::find($id);
+        $variant = Variant::find($variantId);
+        return view('admin.product.edit', compact('product', 'variant', 'size', 'color'));
+    }
+    public function updateVariant(Request $request, string $id, string $variantId)
+    {
+        $product = Variant::find($id);
+        $request->validate([
+            'size_id' => 'required',
+            'color_id' => 'required',
+            'price' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Kiểm tra xem biến thể có tồn tại không
+        $variant = Variant::find($variantId);
+        $existingVariant = Variant::where('product_id', $product->id)
+            ->where('size_id', $request->size_id)
+            ->where('color_id', $request->color_id)
+            ->first();
+
+        if ($existingVariant) {
+            return redirect()->back()->with(['error' => 'Biến thể đã tồn tại']);
+        }
+        if (!$variant) {
+            return redirect()->back()->with(['error' => 'Biến thể không tồn tại']);
+        }
+
+        // Kiểm tra và xử lý hình ảnh
+        if ($request->hasFile('image')) {
+            // Xóa hình ảnh cũ
+            Storage::delete('/public/' . $variant->image);
+
+            // Upload hình ảnh mới
+            $variant->image = uploadFile('hinh', $request->file('image'));
+        }
+
+        // Cập nhật thông tin biến thể
+        $variant->size_id = $request->size_id;
+        $variant->color_id = $request->color_id;
+        $variant->price = $request->price;
+        $variant->quantity = $request->quantity;
+        $variant->save();
+
+        return redirect()->route('product.variant', ['id' => $product->id])->with(['success' => 'Cập nhật biến thể thành công']);
+    }
+    public function deleteVariant(string $id, string $variantId)
+{
+    // Tìm sản phẩm và biến thể tương ứng
+    $product = Product::find($id);
+    $variant = Variant::find($variantId);
+
+    // Kiểm tra xem biến thể có tồn tại không
+    if (!$variant) {
+        return redirect()->back()->with(['error' => 'Biến thể không tồn tại']);
+    }
+
+    // Kiểm tra xem biến thể có thuộc sản phẩm không
+    if ($variant->product_id != $product->id) {
+        return redirect()->back()->with(['error' => 'Biến thể không thuộc sản phẩm']);
+    }
+
+    // Xóa hình ảnh của biến thể (nếu có)
+    if ($variant->image) {
+        Storage::delete('/public/' . $variant->image);
+    }
+
+    // Xóa biến thể
+    $variant->delete();
+
+    return redirect()->back()->with(['success' => 'Xóa biến thể thành công']);
+}
 }

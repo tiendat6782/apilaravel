@@ -21,7 +21,7 @@
                         <th>Tên size</th>
                         <th>Mô tả</th>
                     </thead>
-                        <tr>
+                        <tr class="align-middle">
                             <td>{{ $size->name }}</td>
                             <td>{{ $size->description }}</td>
                             
