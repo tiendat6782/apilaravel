@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,6 +62,11 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         if ($id) {
+            $exists = Product::where('category_id', $id)->exists();
+            if ($exists) {
+                return redirect()->route('admin.category.index')->with(['msg' => 'Danh mục này đang tồn tại trong sản phẩm, lên không thể xoá!']);
+            }
+
             DB::table('categories')->where('id', $id)->delete();
             return redirect()->route('admin.category.index')->with(['msg' => 'Xoá thành công']);
         }

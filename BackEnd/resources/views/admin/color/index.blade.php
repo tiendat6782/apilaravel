@@ -15,19 +15,27 @@
                         <th>Mô tả</th>
                         <th>Hành động</th>
                     </thead>
-                    @php $i = 1 @endphp
-                    @foreach ($color as $item)
-                        <tr>
-                            <td>{{ $i }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->description }}</td>
-                            <td>
-                                <a href="{{ route('admin.color.edit',['id' => $item->id]) }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a href="{{ route('admin.color.destroy',['id' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá màu này.')" class="text-danger"><i class="ti ti-trash"></i></a>
-                            </td>
-                        </tr>
-                        @php $i++ @endphp
-                    @endforeach
+                    @isset($color)
+                        @if ($color->count()>0)
+                        @php $i = 1 @endphp
+                          @foreach ($color as $item)
+                              <tr>
+                                  <td>{{ $i }}</td>
+                                  <td>{{ $item->name }}</td>
+                                  <td>{{ $item->description }}</td>
+                                  <td>
+                                      <a href="{{ route('admin.color.edit',['id' => $item->id]) }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                      <a href="{{ route('admin.color.destroy',['id' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá màu này.')" class="text-danger"><i class="ti ti-trash"></i></a>
+                                  </td>
+                              </tr>
+                              @php $i++ @endphp
+                          @endforeach
+                        @else
+                            <tr class="text-danger text-center">
+                              <td colspan="4">Không có bản ghi</td>
+                            </tr>
+                        @endif
+                    @endisset
                 </table>
                 {{-- <div class="d-flex justify-content-center">
                     {{ $color->links() }}

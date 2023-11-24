@@ -41,6 +41,10 @@ Route::prefix('admin')->group(function () {
     //product
     Route::prefix('product')->controller(ProductController::class)->group(function () {
         Route::get('/', 'index')->name('admin.product.index');
+        Route::post('/store', 'store')->name('admin.product.store'); //thêm size
+
+        Route::get('/destroy/{id}', 'destroy')->name('admin.product.destroy'); //xoá sản phẩm
+
     });
 
     //size
