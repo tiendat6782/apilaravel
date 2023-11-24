@@ -7,24 +7,29 @@
     <div class="col-lg-8 d-flex align-items-strech">
         <div class="card w-100">
           <div class="card-body">
-            <h3>Sửa màu</h3>
+            <div class="row">
+                <div class="col-6">
+                    <h3>Sửa màu</h3>
+                </div>
+                <div class="col-6 text-end ">
+                    <a href="{{ route('admin.color.index') }}"><i class="ti ti-list fs-5"></i>List</a>
+                </div>
+            </div>
             <div>
-                
-                    <table class="table">
-                        <thead>
-                            <th>Tên màu</th>
-                            <th>Mô tả</th>
-                            <th>Hành động</th>
-                        </thead>
-                            <tr>
-                                <td>{{ $color->name }}</td>
-                                <td>{{ $color->description }}</td>
-                                <td>
-                                <a href="{{ route('admin.color.destroy',['id' => $color->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá màu này.')" class="text-danger"><i class="ti ti-trash"></i></a>
-
-                                </td>
-                            </tr>
-                    </table>
+                <table class="table">
+                    <thead>
+                        <th>Tên màu</th>
+                        <th>Mô tả</th>
+                    </thead>
+                        <tr>
+                            <td>{{ $color->name }}</td>
+                            <td>{{ $color->description }}</td>
+                        
+                        </tr>
+                </table>
+                <div class="text-end ">
+                    <a href="{{ route('admin.color.destroy',['id'=>$color->id]) }}"><i class="ti ti-trash fs-5 text-danger"></i></a>
+                </div>
             </div>
           </div>
         </div>

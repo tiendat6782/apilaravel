@@ -8,35 +8,36 @@
       <div class="card-body">
         <h3>Danh sách sản phẩm.</h3>
         <div>
-            <table class="table">
-                    <thead>
-                        <th>#</th>
-                        <th>Danh mục</th>
-                        <th>Sản phẩm</th>
-                        <th>Hành động</th>
-                    </thead>
+            <table class="table table-striped">
+              <thead>
+                  <th>#</th>
+                  <th>Danh mục</th>
+                  <th>Sản phẩm</th>
+                  <th>Hành động</th>
+              </thead>
                     @php $i = 1 @endphp
                     @isset($product)
-                        @if ($product->count()>0)
+                      @if ($product->count()>0)
                           @foreach ($product as $item)
-                          <tr>
+                            <tr>
                               <td>{{ $i }}</td>
                               <td>{{ $item->getCate() }}</td>
                               <td>{{ $item->name }}</td>
                               <td>
-                                  {{-- <a href="{{ route('admin.product.edit',['id' => $item->id]) }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a> --}}
-                                  <a href="{{ route('admin.product.destroy',['id' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá sản phẩm này.')" class="text-danger"><i class="ti ti-trash"></i></a>
+                                <a href="{{ route('admin.product.edit',['id' => $item->id]) }}" class="text-warning me-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="{{ route('admin.product.destroy',['id' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá sản phẩm này.')" class="text-danger"><i class="ti ti-trash"></i></a>
+                                <a href="{{ route('product.variant',['id'=>$item->id]) }}" class="text-success ms-2"><i class="ti ti-paint"></i></a>
                               </td>
-                          </tr>
-                          @php $i++ @endphp
+                            </tr>
+                            @php $i++ @endphp
                           @endforeach
-                        @else
-                          <tr class="text-center text-danger">
-                            <td colspan="4">Không có bản ghi</td>
-                          </tr>  
+                          @else
+                            <tr class="text-center text-danger">
+                              <td colspan="4">Không có bản ghi</td>
+                            </tr>  
                         @endif
                     @endisset
-                </table>
+            </table>
                 {{-- <div class="d-flex justify-content-center">
                     {{ $product->links() }}
                 </div> --}}
@@ -90,7 +91,7 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror</label>
                     </div>
-                    <div class="form-floating mb-3">
+                    <div class="mb-3">
                       @error('image')
                   <span class="text-danger">{{ $message }}</span>
                   @enderror

@@ -41,10 +41,16 @@ Route::prefix('admin')->group(function () {
     //product
     Route::prefix('product')->controller(ProductController::class)->group(function () {
         Route::get('/', 'index')->name('admin.product.index');
-        Route::post('/store', 'store')->name('admin.product.store'); //thêm size
+        Route::post('/store', 'store')->name('admin.product.store'); //thêm sản phẩm
+
+        Route::get('/edit/{id}', 'edit')->name('admin.product.edit'); //thêm sản phẩm
+        Route::post('/update/{id}', 'update')->name('admin.product.update'); //thêm sản phẩm
 
         Route::get('/destroy/{id}', 'destroy')->name('admin.product.destroy'); //xoá sản phẩm
 
+        //variant
+        Route::get('variant/{id}', 'variant')->name('product.variant');
+        Route::post('variant/{id}/store', 'createVariant')->name('variant.store');
     });
 
     //size
