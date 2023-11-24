@@ -9,7 +9,13 @@ class Product extends Model
 {
     use HasFactory;
     protected $table = "products";
-
+    protected $fillable = [
+        'category_id',
+        'name',
+        'description',
+        'image',
+        // Add 'category_id' to the $fillable array
+    ];
     public function getCate()
     {
         $category = Category::find($this->category_id);
@@ -19,4 +25,5 @@ class Product extends Model
             return "Empty";
         }
     }
+    
 }

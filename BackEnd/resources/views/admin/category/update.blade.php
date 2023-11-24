@@ -3,28 +3,31 @@
 
 @section('content')
 <div class="row">
-    
     <div class="col-lg-8 d-flex align-items-strech">
         <div class="card w-100">
           <div class="card-body">
-            <h3>Sửa danh mục</h3>
+            <div class="row">
+                <div class="col-6">
+                    <h3>Sửa danh mục </h3>
+                </div>
+                <div class="col-6 text-end ">
+                    <a href="{{ route('admin.category.index') }}"><i class="ti ti-list fs-5"></i>List</a>
+                </div>
+            </div>
             <div>
-                
-                    <table class="table">
-                        <thead>
-                            <th>Tên danh mục</th>
-                            <th>Mô tả</th>
-                            <th>Hành động</th>
-                        </thead>
-                            <tr>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->description }}</td>
-                                <td>
-                                <a href="{{ route('admin.category.destroy',['id' => $category->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá danh mục này.')" class="text-danger"><i class="ti ti-trash"></i></a>
-
-                                </td>
-                            </tr>
-                    </table>
+                <table class="table">
+                    <thead>
+                        <th>Tên danh mục</th>
+                        <th>Mô tả</th>
+                    </thead>
+                        <tr>
+                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->description }}</td>
+                        </tr>
+                </table>
+                <div class="text-end ">
+                    <a href="{{ route('admin.category.destroy',['id'=>$category->id]) }}"><i class="ti ti-trash fs-5 text-danger"></i></a>
+                </div>
             </div>
           </div>
         </div>

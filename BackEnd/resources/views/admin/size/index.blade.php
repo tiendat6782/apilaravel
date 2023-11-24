@@ -8,7 +8,7 @@
           <div class="card-body">
             <h3>Danh sách size.</h3>
             <div>
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <th>#</th>
                         <th>Size</th>
