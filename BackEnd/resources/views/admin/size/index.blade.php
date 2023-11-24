@@ -18,21 +18,21 @@
                     @php $i = 1 @endphp
                     @isset($size)
                         @if ($size->count()>0)
-                        @foreach ($size as $item)
-                        <tr>
-                            <td>{{ $i }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->description }}</td>
-                            <td>
-                                <a href="{{ route('admin.size.edit',['id' => $item->id]) }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a href="{{ route('admin.size.destroy',['id' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá size này.')" class="text-danger"><i class="ti ti-trash"></i></a>
-                            </td>
-                        </tr>
-                        @php $i++ @endphp
-                    @endforeach
+                          @foreach ($size as $item)
+                            <tr>
+                              <td>{{ $i }}</td>
+                              <td>{{ $item->name }}</td>
+                              <td>{{ $item->description }}</td>
+                              <td>
+                                  <a href="{{ route('admin.size.edit',['id' => $item->id]) }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                  <a href="{{ route('admin.size.destroy',['id' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá size này.')" class="text-danger"><i class="ti ti-trash"></i></a>
+                              </td>
+                            </tr>
+                            @php $i++ @endphp
+                          @endforeach
                         @else
                             <tr class="text-danger text-center">
-                                <td colspan="4">Không có size</td>
+                                <td colspan="4">Không có bản ghi</td>
                             </tr>
                         @endif
                     @endisset
@@ -47,7 +47,7 @@
     <div class="col-lg-4">
         <div class="row">
           <div class="col-lg-12">
-            <!-- Yearly Breakup -->
+            
             <div class="card overflow-hidden">
               <div class="card-body p-4">
                 <h5 class="card-title mb-9 fw-semibold">

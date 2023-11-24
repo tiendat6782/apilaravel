@@ -1,112 +1,129 @@
 @extends('admin.index')
 
+
 @section('content')
-    
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-8 d-flex align-items-strech">
-          <div class="card w-100">
-            <div class="card-body">
-              <div
-                class="d-sm-flex d-block align-items-center justify-content-between mb-9"
-              >
-                <div class="mb-3 mb-sm-0">
-                  <h5 class="card-title fw-semibold">Sales Overview</h5>
-                </div>
-                <div>
-                  <select class="form-select">
-                    <option value="1">March 2023</option>
-                    <option value="2">April 2023</option>
-                    <option value="3">May 2023</option>
-                    <option value="4">June 2023</option>
-                  </select>
-                </div>
-              </div>
-              <div id="chart"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-lg-12">
-              <!-- Yearly Breakup -->
-              <div class="card overflow-hidden">
-                <div class="card-body p-4">
-                  <h5 class="card-title mb-9 fw-semibold">
-                    Yearly Breakup
-                  </h5>
-                  <div class="row align-items-center">
-                    <div class="col-8">
-                      <h4 class="fw-semibold mb-3">$36,358</h4>
-                      <div class="d-flex align-items-center mb-3">
-                        <span
-                          class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center"
-                        >
-                          <i class="ti ti-arrow-up-left text-success"></i>
-                        </span>
-                        <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                        <p class="fs-3 mb-0">last year</p>
-                      </div>
-                      <div class="d-flex align-items-center">
-                        <div class="me-4">
-                          <span
-                            class="round-8 bg-primary rounded-circle me-2 d-inline-block"
-                          ></span>
-                          <span class="fs-2">2023</span>
-                        </div>
-                        <div>
-                          <span
-                            class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"
-                          ></span>
-                          <span class="fs-2">2023</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="d-flex justify-content-center">
-                        <div id="breakup"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <!-- Monthly Earnings -->
-              <div class="card">
-                <div class="card-body">
-                  <div class="row alig n-items-start">
-                    <div class="col-8">
-                      <h5 class="card-title mb-9 fw-semibold">
-                        Monthly Earnings
-                      </h5>
-                      <h4 class="fw-semibold mb-3">$6,820</h4>
-                      <div class="d-flex align-items-center pb-1">
-                        <span
-                          class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center"
-                        >
-                          <i class="ti ti-arrow-down-right text-danger"></i>
-                        </span>
-                        <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                        <p class="fs-3 mb-0">last year</p>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="d-flex justify-content-end">
-                        <div
-                          class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center"
-                        >
-                          <i class="ti ti-currency-dollar fs-6"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="earning"></div>
-              </div>
-            </div>
+<div class="row">
+  <div class="col-lg-8 d-flex align-items-strech">
+    <div class="card w-100">
+      <div class="card-body">
+        <h3>Danh sách sản phẩm.</h3>
+        <div>
+            <table class="table">
+                    <thead>
+                        <th>#</th>
+                        <th>Danh mục</th>
+                        <th>Sản phẩm</th>
+                        <th>Hành động</th>
+                    </thead>
+                    @php $i = 1 @endphp
+                    @isset($product)
+                        @if ($product->count()>0)
+                          @foreach ($product as $item)
+                          <tr>
+                              <td>{{ $i }}</td>
+                              <td>{{ $item->getCate() }}</td>
+                              <td>{{ $item->name }}</td>
+                              <td>
+                                  {{-- <a href="{{ route('admin.product.edit',['id' => $item->id]) }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a> --}}
+                                  <a href="{{ route('admin.product.destroy',['id' => $item->id]) }}" onclick="return confirm('Bạn có chắc chắn xoá sản phẩm này.')" class="text-danger"><i class="ti ti-trash"></i></a>
+                              </td>
+                          </tr>
+                          @php $i++ @endphp
+                          @endforeach
+                        @else
+                          <tr class="text-center text-danger">
+                            <td colspan="4">Không có bản ghi</td>
+                          </tr>  
+                        @endif
+                    @endisset
+                </table>
+                {{-- <div class="d-flex justify-content-center">
+                    {{ $product->links() }}
+                </div> --}}
           </div>
         </div>
       </div>
+    </div>
+  <div class="col-lg-4">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Monthly Earnings -->
+            <div class="card">
+              <div class="card-body">
+                <label for="">Image</label>
+                  
+                  <img id="preview" src="" alt="Image Preview"  class="img-thumbnail" style="display:none;width: 300px;height: 300px;">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <!-- Yearly Breakup -->
+            <div class="card overflow-hidden">
+              <div class="card-body p-4">
+                <h5 class="card-title mb-9 fw-semibold">
+                  Thêm sản phẩm.
+                </h5>
+                <div class="row align-items-center">
+                    {{-- form --}}
+                 <form action="{{ route('admin.product.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-floating mb-3">
+                      <select name="category_id" id="category_id" class="form-select" aria-label="Category">
+                          <option value="">--Chọn danh mục--</option>
+                          @foreach ($category as $cate)
+                              <option value="{{ $cate->id }}" {{ old('category_id') == $cate->id ? 'selected' : '' }}>{{ $cate->name }}</option>
+                          @endforeach
+                      </select>
+                      <label for="category_id">Category @error('category_id')
+                          <span class="text-danger">{{ $message }}</span>
+                      @enderror </label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="name" class="form-control" id="floatingInput" placeholder="Nhập tên sản phẩm" value="{{ old('name') }}">
+                        <label for="floatingInput">Tên sản phẩm @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror </label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea name="description" class="form-control" id="floatingPassword" placeholder="Mô tả ngắn">{{ old('description') }}</textarea>
+                        <label for="floatingPassword">Mô tả ngắn @error('description')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      @error('image')
+                  <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                      <input type="file" id="image" name="image" onchange="previewImage()" class="form-control" >
+                  </div>
+                      <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary">Thêm</button>
+                      </div>
+                 </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+    
 </div>
 @endsection
+<script>
+  function previewImage() {
+      var input = document.getElementById('image');
+      var preview = document.getElementById('preview');
+
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              preview.style.display = 'block';
+              preview.src = e.target.result;
+          };
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+</script>

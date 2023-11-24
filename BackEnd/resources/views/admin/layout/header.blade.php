@@ -105,7 +105,7 @@
               aria-expanded="false"
             >
               <span>
-                <i class="ti ti-shopping-cart"></i>
+                <i class="ti ti-key"></i>
               </span>
               <span class="hide-menu">Quyền</span>
             </a>
