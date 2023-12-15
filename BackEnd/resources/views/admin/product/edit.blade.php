@@ -82,7 +82,7 @@
               @csrf
               <div class="">
                   <div class="">
-                      <label for="">Size</label>
+                      <label for="size">Size</label>
                       @error('size_id')
                       <span class="text-danger">{{ $message }}</span><br>
                       @enderror
@@ -96,7 +96,7 @@
                       </div>
                   </div>
                   <div class="">
-                      <label for="">Color</label>
+                      <label for="color">Color</label>
                       @error('color_id')
                       <span class="text-danger">{{ $message }}</span><br>
                       @enderror
@@ -117,14 +117,14 @@
                   <input type="file" id="image" name="image" onchange="previewImage()" class="form-control">
               </div>
               <div class="form-floating mt-3">
-                  <input type="text" name="price" class="form-control" id="floatingInput" placeholder="Nhập tên sản phẩm" value="{{ $variant->price ?? old('price') }}">
-                  <label for="floatingInput">Giá sản phẩm @error('price')
+                  <input type="text" name="price" class="form-control" id="floatingInputPrice" placeholder="Nhập tên sản phẩm" value="{{ $variant->price ?? old('price') }}">
+                  <label for="floatingInputPrice">Giá sản phẩm @error('price')
                       <span class="text-danger">{{ $message }}</span>
                   @enderror </label>
               </div>
               <div class="form-floating mt-3">
-                  <input type="text" name="quantity" class="form-control" id="floatingInput" placeholder="Nhập tên sản phẩm" value="{{ $variant->quantity ?? old('quantity') }}">
-                  <label for="floatingInput">Số lượng sản phẩm @error('quantity')
+                  <input type="text" name="quantity" class="form-control" id="floatingInputQuantity" placeholder="Nhập tên sản phẩm" value="{{ $variant->quantity ?? old('quantity') }}">
+                  <label for="floatingInputQuantity">Số lượng sản phẩm @error('quantity')
                       <span class="text-danger">{{ $message }}</span>
                   @enderror </label>
               </div>
@@ -142,7 +142,7 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
-            <label for="" class="fw-bold">Image</label>
+            <b>Image</b>
               <img id="preview" src="" alt="Image Preview"  class="img-thumbnail" style="display:none;width: 300px;height: 300px;">
           </div>
         </div>

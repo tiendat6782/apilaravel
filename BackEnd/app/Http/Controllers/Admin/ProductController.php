@@ -129,7 +129,7 @@ class ProductController extends Controller
         $variant = Variant::where('product_id', $id)->get();
         $size = Size::all();
         $color = Color::all();
-        $product = Product::find($id);
+        $product = Product::find($id); 
         return view('admin.product.variant', compact('color', 'size', 'product', 'variant'));
     }
 

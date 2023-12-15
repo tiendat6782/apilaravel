@@ -118,8 +118,7 @@
         <!-- Monthly Earnings -->
         <div class="card">
           <div class="card-body">
-            <label for="" class="fw-bold">Image</label>
-              
+              <b>Image</b>              
               <img id="preview" src="" alt="Image Preview"  class="img-thumbnail" style="display:none;width: 300px;height: 300px;">
           </div>
         </div>
@@ -137,7 +136,7 @@
                @csrf
                 <div class="row">
                     <div class="mt-2 col-4">
-                      <label for="">Size</label>
+                      <b>Size</b>
                       @error('size_id')
                       <span class="text-danger">{{ $message }}</span><br>
                       @enderror
@@ -152,7 +151,7 @@
                       </div>
                     </div>
                     <div class="mt-2 col-8">
-                      <label for="">Color</label>
+                      <b>Color</b>
                       @error('color_id')
                       <span class="text-danger">{{ $message }}</span><br>
                       @enderror
@@ -174,14 +173,14 @@
                     <input type="file" id="image" name="image" onchange="previewImage()" class="form-control" >
                   </div>
                   <div class="form-floating mt-3">
-                    <input type="text" name="price" class="form-control" id="floatingInput" placeholder="Nhập tên sản phẩm" value="{{ old('name') }}">
-                    <label for="floatingInput">Giá sản phẩm @error('price')
+                    <input type="text" name="price" class="form-control" id="floatingInputPrice" placeholder="Nhập tên sản phẩm" value="{{ old('name') }}">
+                    <label for="floatingInputPrice">Giá sản phẩm @error('price')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror </label>
                   </div>
                   <div class="form-floating mt-3">
-                    <input type="text" name="quantity" class="form-control" id="floatingInput" placeholder="Nhập tên sản phẩm" value="{{ old('name') }}">
-                    <label for="floatingInput">Số lượng sản phẩm @error('quantity')
+                    <input type="text" name="quantity" class="form-control" id="floatingInputQuantity" placeholder="Nhập tên sản phẩm" value="{{ old('name') }}">
+                    <label for="floatingInputQuantity">Số lượng sản phẩm @error('quantity')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror </label>
                   </div>
