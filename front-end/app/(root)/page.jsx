@@ -1,6 +1,10 @@
 import HomeLayout from "@/components/layout/HomeLayout";
-import Image from "next/image";
+import Cover from "@/components/section/home/Cover";
 
 export default function Home() {
-  return <HomeLayout>hello</HomeLayout>;
+  return (
+    <HomeLayout>
+      <Cover />
+    </HomeLayout>
+  );
 }

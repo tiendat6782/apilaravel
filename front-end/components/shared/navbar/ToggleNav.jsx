@@ -8,11 +8,17 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ToggleNav = () => {
   return (
     <Sheet>
-      <SheetTrigger>Open</SheetTrigger>
+      <SheetTrigger asChild>
+        <Button className="background_primary" variant="outline" size="icon">
+          <Menu className="text_primary" />
+        </Button>
+      </SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Are you sure absolutely sure?</SheetTitle>

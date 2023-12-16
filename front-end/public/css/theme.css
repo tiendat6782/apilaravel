@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .background_primary {
+    @apply bg-slate-100;
+  }
+  .text_primary {
+    @apply text-slate-600 dark:text-slate-300;
+  }
+  .text_secondary {
+    @apply text-slate-500 dark:text-slate-400;
+  }
+
+  /* flex box */
+  .flex_start {
+    @apply flex items-center justify-start gap-1;
+  }
+  .flex_center {
+    @apply flex items-center justify-center gap-1;
+  }
+  .flex_between {
+    @apply flex items-center justify-between gap-1;
+  }
+  /* font */
+
+  /* effect */
+  .click {
+    @apply active:scale-90 transition-all duration-150;
+  }
+}
