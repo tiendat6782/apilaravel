@@ -29,4 +29,22 @@
   .click {
     @apply active:scale-90 transition-all duration-150;
   }
+  .mask-gradient::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 5%) translateZ(0px);
+    height: 256px;
+    width: 256px;
+    background: linear-gradient(
+      rgba(108, 56, 255, 0.8) 40%,
+      rgba(181, 154, 255, 0.8) 100%
+    );
+    opacity: 0.4;
+    border-radius: 50%;
+    filter: blur(80px);
+    overflow: visible;
+  }
 }
