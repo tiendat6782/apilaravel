@@ -9,7 +9,7 @@ const Page = () => {
   return (
     <>
       <GlobalFilters />
-      <div className="flex_between border_b_primary gap-2 ">
+      <div className="flex_between border_b_primary relative gap-2">
         <Filters />
         <p className="text_secondary text-xs font-semibold">
           Tìm thấy <span className="text-primary">20</span> sản phẩm
