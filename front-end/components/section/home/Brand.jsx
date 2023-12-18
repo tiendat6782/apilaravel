@@ -32,6 +32,12 @@ const Brand = () => {
           <div className="absolute left-1/2 top-1/2 h-[250px] w-[250px] origin-center  -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-100 "></div>
         </div>
       </div>
+      <p className="text-center font-semibold uppercase tracking-widest">
+        multibrand
+      </p>
+      <p className="text_primary text-center text-3xl font-bold ">
+        Tất cả các thương hiệu. Tất cả những sản phẩm.
+      </p>
     </div>
   );
 };

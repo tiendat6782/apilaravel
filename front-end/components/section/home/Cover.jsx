@@ -35,7 +35,7 @@ const Cover = () => {
   };
   return (
     <>
-      <div className="relative h-[600px] w-full overflow-hidden">
+      <div className="relative h-[600px] w-full overflow-hidden rounded-md">
         <AnimatePresence initial={false} custom={pageDirection}>
           <motion.img
             variants={variants}
