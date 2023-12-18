@@ -13,7 +13,10 @@ const Filters = () => {
       {" "}
       <Select>
         <SelectTrigger className="w-fit max-w-[300px] gap-2 border-none">
-          <SelectValue placeholder="Chọn danh mục" />
+          <SelectValue
+            placeholder="Chọn danh mục"
+            className="placeholder:font-semibold"
+          />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="1">1</SelectItem>
