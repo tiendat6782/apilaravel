@@ -20,11 +20,7 @@ export const navLinks = [
     path: "/register",
   },
   {
-    title: "Profile",
-    path: "/profile",
-  },
-  {
-    title: "Logout",
-    path: "/logout",
+    title: "Product",
+    path: "/products",
   },
 ];
