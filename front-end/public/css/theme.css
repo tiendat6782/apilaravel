@@ -4,7 +4,7 @@
 
 @layer utilities {
   .background_primary {
-    @apply bg-slate-100;
+    @apply bg-slate-100 dark:bg-slate-800;
   }
   .text_primary {
     @apply text-slate-700 dark:text-slate-300;
@@ -49,5 +49,14 @@
     border-radius: 50%;
     filter: blur(80px);
     overflow: visible;
+  }
+  .border_primary {
+    @apply border border-slate-200 dark:border-slate-700;
+  }
+  .border_t_primary {
+    @apply border-t border-slate-200 dark:border-slate-700;
+  }
+  .border_b_primary {
+    @apply border-b border-slate-200 dark:border-slate-700;
   }
 }

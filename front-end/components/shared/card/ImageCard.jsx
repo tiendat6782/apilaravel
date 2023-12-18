@@ -6,7 +6,7 @@ const ImageCard = ({ imgSrc, extraClass }) => {
   return (
     <div
       className={classNames(
-        "h-[300px] w-full overflow-hidden cursor-pointer relative rounded-md",
+        "h-[300px] w-full overflow-hidden cursor-pointer relative ",
         extraClass
       )}
     >
