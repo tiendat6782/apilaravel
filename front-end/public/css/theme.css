@@ -59,4 +59,90 @@
   .border_b_primary {
     @apply border-b border-slate-200 dark:border-slate-700;
   }
+  .iecUHQ {
+    --scale: 1.3;
+    --x: -300px;
+    --y: 30%;
+    transform: scale(var(--scale)) scaleY(86.6%) skewX(8deg) rotateZ(349deg)
+      translate(var(--x), var(--y));
+  }
+  .cAoWIW {
+    position: relative;
+    width: min(1200px, 100%);
+    /* border-top-color: ;
+    border-top-style: ;
+    border-top-width: ;
+    border-right-color: ;
+    border-right-style: ;
+    border-right-width: ;
+    border-bottom-color: ;
+    border-bottom-style: ;
+    border-bottom-width: ;
+    border-image-source: ;
+    border-image-slice: ;
+    border-image-width: ;
+    border-image-outset: ;
+    border-image-repeat: ; */
+    height: 640px;
+    margin: 0px auto;
+    border-radius: 0px 12px 12px 0px;
+    border-left: none;
+    background: #fff;
+  }
+  .CobLO {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    justify-content: end;
+    gap: 8px;
+    padding: 16px;
+    height: 57px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .bbQmco {
+    position: absolute;
+    top: 50px;
+    right: -24px;
+    isolation: isolate;
+    width: 480px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+
+    height: 640px;
+    overflow: hidden;
+  }
+  .fKSjgO {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0px 20px;
+    height: 48px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .heMGys {
+    position: absolute;
+    isolation: isolate;
+    top: 30px;
+    right: -24px;
+    width: 480px;
+    height: 640px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.62);
+    filter: blur(20px);
+    transform: translateZ(0px);
+  }
+  .iecUHQ {
+    --scale: 1.3;
+    --x: -300px;
+    --y: 30%;
+    transform: scale(0.8) scaleY(86.6%) skewX(8deg) rotateZ(349deg)
+      translate(-10%, 30%);
+  }
+  .gradient-mask {
+    background: linear-gradient(to top, #fff, transparent);
+  }
 }
