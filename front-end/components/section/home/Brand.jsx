@@ -1,9 +1,13 @@
+"use client";
 import "@/public/css/brand.css";
 import React from "react";
+import { useAnimate } from "framer-motion";
 
 const Brand = () => {
+  const [scope, animate] = useAnimate();
+  animate(scope.current, { opacity: 1 });
   return (
-    <div className="overflow-hidden">
+    <div ref={scope} className="overflow-hidden">
       <div className="relative flex min-w-full select-none items-center justify-center overflow-visible p-[128px] ">
         <div className=" z-[1] ml-[12px] flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-slate-100 bg-slate-50">
           <div className="nike h-16 w-16 bg-slate-800"></div>

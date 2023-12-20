@@ -1,12 +1,15 @@
+import TextAnimation from "@/components/animation/TextAnimation";
 import { ChevronRight, Mail } from "lucide-react";
 import React from "react";
 
 const Page = () => {
   return (
     <div>
-      <p className="text_primary text-center text-3xl font-semibold">
-        Ruby Store giúp gì đượcc cho bạn ?
-      </p>
+      <TextAnimation>
+        <p className="text_primary text-center text-3xl font-semibold">
+          Ruby Store giúp gì đượcc cho bạn ?
+        </p>
+      </TextAnimation>
       <br />
 
       <p className="text_secondary text-center text-xl font-semibold">

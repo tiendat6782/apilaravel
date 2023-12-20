@@ -1,21 +1,21 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/Badge";
 
 const GlobalFilters = () => {
   return (
-    <div className="flex_start custom-scrollbar  mx-auto overflow-x-scroll p-3">
-      <Button className="text-xs " variant="outline">
+    <div className="flex_start custom-scrollbar  mx-auto overflow-x-scroll py-3">
+      <Badge className="text-xs " variant="outline">
         Giày cầu lông
-      </Button>
-      <Button className="text-xs " variant="outline">
+      </Badge>
+      <Badge className="text-xs " variant="outline">
         Giày chạy bộ
-      </Button>
-      <Button className="text-xs " variant="outline">
+      </Badge>
+      <Badge className="text-xs " variant="outline">
         Giày chạy bộ
-      </Button>
-      <Button className="text-xs " variant="outline">
+      </Badge>
+      <Badge className="text-xs " variant="outline">
         Giày chạy bộ
-      </Button>
+      </Badge>
     </div>
   );
 };

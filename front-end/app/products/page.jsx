@@ -3,11 +3,13 @@ import ProductCard from "@/components/shared/card/ProductCard";
 import ProductGrid from "@/components/shared/grid/ProductGrid";
 import Filters from "@/components/shared/search/FIlters";
 import GlobalFilters from "@/components/shared/search/GlobalFilters";
+import LocalSearch from "@/components/shared/search/LocalSearch";
 import React from "react";
 
 const Page = () => {
   return (
     <>
+      <LocalSearch />
       <GlobalFilters />
       <div className="flex_between border_b_primary relative gap-2">
         <Filters />

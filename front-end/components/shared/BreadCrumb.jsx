@@ -4,7 +4,7 @@ import React from "react";
 const BreadCrumb = () => {
   return (
     <nav
-      className="flex rounded-lg bg-slate-100 px-5 py-3 text-gray-700 "
+      className="background_primary flex rounded-lg px-5 py-3 text-gray-700 "
       aria-label="Breadcrumb"
     >
       <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -50,7 +50,7 @@ const BreadCrumb = () => {
             </Link>
           </div>
         </li>
-        <li aria-current="page">
+        {/* <li aria-current="page">
           <div className="flex items-center">
             <svg
               className="mx-1 h-3 w-3 text-gray-400"
@@ -71,7 +71,7 @@ const BreadCrumb = () => {
               id
             </span>
           </div>
-        </li>
+        </li> */}
       </ol>
     </nav>
   );
