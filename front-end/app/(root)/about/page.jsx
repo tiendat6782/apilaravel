@@ -4,7 +4,7 @@ import React from "react";
 const Page = () => {
   return (
     <div>
-      <p className="text-center text-3xl font-semibold">
+      <p className="text_primary text-center text-3xl font-semibold">
         Ruby Store cung cấp những sản phẩm gỉ?
       </p>
       <PerspectiveCard />
