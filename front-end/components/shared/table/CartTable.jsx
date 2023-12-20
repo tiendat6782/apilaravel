@@ -9,6 +9,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
+import SelectSize from "../select/SelectSize";
+import SelectColor from "../select/SelectColor";
+import SelectQuantity from "../select/SelectQuantity";
 
 const CartTable = () => {
   return (
@@ -20,10 +23,8 @@ const CartTable = () => {
             <TableHead className="">Sản phẩm</TableHead>
             <TableHead>Kích thước</TableHead>
             <TableHead>Màu sắc</TableHead>
-            <TableHead className="text-right">Số lượng</TableHead>
-            <TableHead className="text-right">Giá</TableHead>
-            <TableHead className="text-right">Giá</TableHead>
-            <TableHead className="text-right">Giá</TableHead>
+            <TableHead className="">Số lượng</TableHead>
+            <TableHead className="">Giá</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -41,10 +42,16 @@ const CartTable = () => {
                 Giày thể thaod
               </p>
             </TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
+            <TableCell>
+              <SelectSize />
+            </TableCell>
+            <TableCell>
+              <SelectColor />
+            </TableCell>
+            <TableCell>
+              <SelectQuantity />
+            </TableCell>
+            <TableCell className="text-sm font-semibold">$250.00</TableCell>
           </TableRow>
         </TableBody>
       </Table>

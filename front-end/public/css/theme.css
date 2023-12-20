@@ -6,6 +6,9 @@
   .background_primary {
     @apply bg-slate-100 dark:bg-slate-800;
   }
+  .background_secondary {
+    @apply bg-slate-50 dark:bg-slate-800;
+  }
   .text_primary {
     @apply text-slate-700 dark:text-slate-300;
   }
