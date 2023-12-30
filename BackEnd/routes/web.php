@@ -2,6 +2,7 @@
 
 
 use App\Livewire\Admin\Category\ListCategory;
+use App\Livewire\Admin\Color\ListColor;
 use App\Livewire\Admin\Dashboard;
 use Illuminate\Support\Facades\Route;
 
@@ -13,4 +14,5 @@ Route::get('/', function () {
 Route::prefix('admin')->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/category', ListCategory::class)->name('category');
+    Route::get('/color', ListColor::class)->name('color');
 });
