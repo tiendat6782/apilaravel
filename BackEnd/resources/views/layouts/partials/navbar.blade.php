@@ -41,7 +41,9 @@
             <span class="hide-menu">Product</span>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="{{ route('admin.category.index') }}" aria-expanded="false">
+            <a class="sidebar-link" 
+            href="{{ route('category') }}" 
+            aria-expanded="false">
               <span>
                 <i class="ti ti-alert-circle"></i>
               </span>
@@ -49,7 +51,9 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="{{ route('admin.product.index') }}" aria-expanded="false">
+            <a class="sidebar-link" 
+            {{-- href="{{ route('admin.product.index') }}"  --}}
+            aria-expanded="false">
               <span>
                 <i class="ti ti-article"></i>
               </span>
@@ -60,7 +64,7 @@
           <li class="sidebar-item">
             <a
               class="sidebar-link"
-              href="{{ route('admin.size.index') }}"
+              {{-- href="{{ route('admin.size.index') }}" --}}
               aria-expanded="false"
             >
               <span>
@@ -72,7 +76,7 @@
           <li class="sidebar-item">
             <a
               class="sidebar-link"
-              href="{{ route('admin.color.index') }}"
+              {{-- href="{{ route('admin.color.index') }}" --}}
               aria-expanded="false"
             >
               <span>
@@ -81,7 +85,7 @@
               <span class="hide-menu">Màu sắc</span>
             </a>
           </li>
-         
+          
           <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
             <span class="hide-menu">User</span>
@@ -89,7 +93,7 @@
           <li class="sidebar-item">
             <a
               class="sidebar-link"
-              href="{{ route('admin.user.index') }}"
+              {{-- href="{{ route('admin.user.index') }}" --}}
               aria-expanded="false"
             >
               <span>
@@ -101,7 +105,7 @@
           <li class="sidebar-item">
             <a
               class="sidebar-link"
-              href="{{ route('admin.role.index') }}"
+              {{-- href="{{ route('admin.role.index') }}" --}}
               aria-expanded="false"
             >
               <span>
@@ -117,7 +121,7 @@
           <li class="sidebar-item">
             <a
               class="sidebar-link"
-              href="{{ route('admin.order.index') }}"
+              {{-- href="{{ route('admin.order.index') }}" --}}
               aria-expanded="false"
             >
               <span>
