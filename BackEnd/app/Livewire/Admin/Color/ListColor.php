@@ -77,9 +77,9 @@ class ListColor extends Component
 
     public function delete($colorId)
     {
-        $color = Color::find($colorId);
+        $item = Color::find($colorId);
 
-        $color->delete();
+        $item->delete();
         $this->dispatch('hide-form', [" Xoá thành công !"]);
         $this->reset();
     }

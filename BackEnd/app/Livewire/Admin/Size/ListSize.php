@@ -72,9 +72,9 @@ class ListSize extends Component
 
     public function delete($sizeId)
     {
-        $color = Size::find($sizeId);
+        $item = Size::find($sizeId);
 
-        $color->delete();
+        $item->delete();
         $this->dispatch('hide-form', [" Xoá thành công !"]);
         $this->reset();
     }

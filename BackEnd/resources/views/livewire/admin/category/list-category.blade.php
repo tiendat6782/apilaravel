@@ -1,11 +1,4 @@
 <div>
-    @if (session()->has('message'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong><i class="fa fa-check-circle me-1"></i> {{ session('message') }} </strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
-        
         <div class="card w-100">
           <div class="card-body">
             <div class="row">

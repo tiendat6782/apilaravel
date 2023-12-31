@@ -52,7 +52,7 @@
           </li>
           <li class="sidebar-item">
             <a class="sidebar-link" 
-            {{-- href="{{ route('admin.product.index') }}"  --}}
+            href="{{ route('products') }}" 
             aria-expanded="false">
               <span>
                 <i class="ti ti-article"></i>
