@@ -15,7 +15,7 @@ class ListCategory extends Component
     public $showEditModal = false;
     public $category;
     public $categoryDeleteId;
-    public function addCategory()
+    public function showModelCreate()
     {
         $this->showEditModal = false;
         $this->reset();

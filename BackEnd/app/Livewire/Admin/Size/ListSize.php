@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Livewire\Admin\Color;
+namespace App\Livewire\Admin\Size;
 
-use App\Models\Color;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Size;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Validator;
 
-class ListColor extends Component
+class ListSize extends Component
 {
+
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -23,48 +24,42 @@ class ListColor extends Component
         $this->dispatch('show-form');
     }
 
-    public function createColor()
+    public function createSize()
     {
 
         $validatedData = Validator::make(
             $this->state,
             [
-                'name' => 'required|unique:colors',
-                'color_code' => 'required|unique:colors',
+                'name' => 'required|unique:sizes',
                 'description' => 'required',
             ],
             [
                 'name.required' => "Vui lòng nhập, không để trống!",
-                'name.unique' => "Màu này đã tồn tại",
-                'color_code.required' => "Vui lòng nhập, không để trống!",
-                'color_code.unique' => "Mã màu này đã tồn tại",
+                'name.unique' => "Size này đã tồn tại",
                 'description.required' => "Vui lòng nhập, không để trống!"
             ]
         )->validate();
-        Color::create($validatedData);
+        Size::create($validatedData);
         $this->dispatch('hide-form', [' Thêm thành công !']);
     }
-    public function edit(Color $item)
+    public function edit(Size $item)
     {
         $this->showEditModal = true;
         $this->item = $item;
         $this->state = $item->toArray();
         $this->dispatch('show-form');
     }
-    public function updateColor()
+    public function updateSize()
     {
         $validatedData = Validator::make(
             $this->state,
             [
-                'name' => 'required|unique:colors,name,' . $this->item->id,
-                'color_code' => 'required|unique:colors,color_code,' . $this->item->id,
+                'name' => 'required|unique:sizes,name,' . $this->item->id,
                 'description' => 'required',
             ],
             [
                 'name.required' => "Vui lòng nhập, không để trống!",
-                'name.unique' => "Màu này đã tồn tại",
-                'color_code.required' => "Vui lòng nhập, không để trống!",
-                'color_code.unique' => "Mã màu này đã tồn tại",
+                'name.unique' => "Size này đã tồn tại",
                 'description.required' => "Vui lòng nhập, không để trống!"
             ]
         )->validate();
@@ -75,9 +70,9 @@ class ListColor extends Component
     }
 
 
-    public function delete($colorId)
+    public function delete($sizeId)
     {
-        $color = Color::find($colorId);
+        $color = Size::find($sizeId);
 
         $color->delete();
         $this->dispatch('hide-form', [" Xoá thành công !"]);
@@ -85,13 +80,8 @@ class ListColor extends Component
     }
     public function render()
     {
-        return view(
-            'livewire.admin.color.list-color',
-            [
-                'color' => Color::latest()->paginate(10)
-
-            ]
-
-        )->layout('layouts.app');
+        return view('livewire.admin.size.list-size', [
+            'size' => Size::latest()->paginate(10)
+        ])->layout('layouts.app');
     }
 }

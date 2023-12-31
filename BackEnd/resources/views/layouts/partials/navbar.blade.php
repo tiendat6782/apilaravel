@@ -64,7 +64,7 @@
           <li class="sidebar-item">
             <a
               class="sidebar-link"
-              {{-- href="{{ route('admin.size.index') }}" --}}
+              href="{{ route('size') }}"
               aria-expanded="false"
             >
               <span>

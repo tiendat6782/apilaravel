@@ -13,7 +13,7 @@
                    <h3>Danh sách màu sắc.</h3>
                 </div>
                 <div class="col-6 text-end">
-                   <button wire:click.prevent="addCategory" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Thêm màu</button>
+                   <button wire:click.prevent="showModelCreate" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Thêm màu</button>
                 </div>
             </div>
             <div>
