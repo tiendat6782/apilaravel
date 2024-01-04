@@ -124,7 +124,7 @@ class ListProducts extends Component
     public function render()
     {
         $this->categories = Category::all();
-        $products = Product::with('category')->latest()->paginate(10);
+        $products = Product::latest()->paginate(10);
 
         return view('livewire.admin.product.list-products', compact('products'))
             ->layout('layouts.app');
