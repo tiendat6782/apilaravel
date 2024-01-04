@@ -58,7 +58,8 @@ class ListProducts extends Component
             $validatedData['image'] = $imagePath;
         }
         Product::create($validatedData);
-        $this->dispatch('hide-form', [' Thêm thành công !']);
+        $this->dispatch('hide-form');
+        $this->dispatch('success', ['Thêm sản phẩm thành công']);
     }
     public function edit(Product $item)
     {
@@ -105,7 +106,8 @@ class ListProducts extends Component
 
         $this->item->update($validatedData);
 
-        $this->dispatch('hide-form', ["Sửa thành công!"]);
+        $this->dispatch('hide-form');
+        $this->dispatch('success', ["Sửa thành công!"]);
     }
 
 
@@ -118,7 +120,9 @@ class ListProducts extends Component
             Storage::disk('public')->delete($item->image);
         }
         $item->delete();
-        $this->dispatch('hide-form', [" Xoá thành công !"]);
+        $this->dispatch('hide-form');
+        $this->dispatch('success', [" Xoá thành công !"]);
+
         $this->reset();
     }
     public function render()

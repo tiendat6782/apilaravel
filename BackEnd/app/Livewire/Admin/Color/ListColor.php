@@ -45,7 +45,8 @@ class ListColor extends Component
             ]
         )->validate();
         Color::create($validatedData);
-        $this->dispatch('hide-form', [' Thêm thành công !']);
+        $this->dispatch('hide-form');
+        $this->dispatch('success', [' Thêm thành công !']);
     }
     public function edit(Color $item)
     {
@@ -74,7 +75,8 @@ class ListColor extends Component
 
         $this->item->update($validatedData);
 
-        $this->dispatch('hide-form', ["Sửa thành công !"]);
+        $this->dispatch('hide-form');
+        $this->dispatch('success', ["Sửa thành công !"]);
     }
 
 
@@ -83,7 +85,8 @@ class ListColor extends Component
         $item = Color::find($colorId);
 
         $item->delete();
-        $this->dispatch('hide-form', [" Xoá thành công !"]);
+        $this->dispatch('hide-form');
+        $this->dispatch('success', [" Xoá thành công !"]);
         $this->reset();
     }
     public function render()

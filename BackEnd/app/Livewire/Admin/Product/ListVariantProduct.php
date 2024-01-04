@@ -67,7 +67,9 @@ class ListVariantProduct extends Component
         ]);
 
         if ($existingVariant) {
-            $this->dispatch('hide-form', ['Biến thể đã tồn tại!']);
+            $this->dispatch('hide-form');
+            $this->dispatch('error', ['Biến thể đã tồn tại ']);
+
             $this->reset(['state']);
 
             return;
@@ -88,7 +90,8 @@ class ListVariantProduct extends Component
 
         $variant->save();
         if ($variant->save()) {
-            $this->dispatch('hide-form', ['Thêm biến thể thành công!']);
+            $this->dispatch('hide-form');
+            $this->dispatch('success', ['Thêm biến thể thành công']);
             $this->reset(['state']);
         }
 

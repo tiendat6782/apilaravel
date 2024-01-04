@@ -32,9 +32,14 @@
             }
             window.addEventListener('hide-form', event => {
             $('#form').modal('hide');
-            console.log(event.detail)
-            toastr.success(event.detail,'Success!')
-        });
+            });
+            window.addEventListener('success', event => {
+            toastr.success(event.detail);
+            });
+            window.addEventListener('error', event => {
+            toastr.error(event.detail);
+            });
+            
         });
     </script>
     <script>
@@ -52,6 +57,5 @@
     {{-- <script src="{{ asset('assets/js/dashboard.js') }}"></script> --}}
     {{-- <script src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
-    @yield('scripts')
 </body>
 </html>
