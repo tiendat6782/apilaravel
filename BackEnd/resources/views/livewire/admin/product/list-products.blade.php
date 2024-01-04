@@ -34,6 +34,7 @@
                                   <td class="text-center">
                                       <a  href="" wire:click.prevent="edit({{ $item }})" class="text-warning me-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                       <a href="" wire:click.prevent="delete({{ $item->id }})" onclick="return confirm('Bạn có chắc chắn xoá sản phẩm này.')" class="text-danger"><i class="ti ti-trash"></i></a>
+                                      <a href="{{ route('variants',['id', $item->id]) }}" class="text-primary ms-2"><i class="fa-solid fa-stamp"></i></a>
                                   </td>
                               </tr>
                               @php $i++ @endphp
