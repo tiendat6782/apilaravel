@@ -6,6 +6,7 @@ use App\Models\Size;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\Title;
 
 class ListSize extends Component
 {
@@ -17,6 +18,8 @@ class ListSize extends Component
     public $showEditModal = false;
     public $item;
     public $categoryDeleteId;
+    #[Title('Size')]
+
     public function showModelCreate()
     {
         $this->showEditModal = false;

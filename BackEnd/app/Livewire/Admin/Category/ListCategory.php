@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Category;
 
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,6 +16,8 @@ class ListCategory extends Component
     public $showEditModal = false;
     public $category;
     public $categoryDeleteId;
+    #[Title('Category')]
+
     public function showModelCreate()
     {
         $this->showEditModal = false;

@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Color;
 
 use App\Models\Color;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,6 +17,8 @@ class ListColor extends Component
     public $showEditModal = false;
     public $item;
     public $categoryDeleteId;
+    #[Title('Color')]
+
     public function showModelCreate()
     {
         $this->showEditModal = false;

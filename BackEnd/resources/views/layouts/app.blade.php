@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="{{ url('assets/css/styles.min.css') }}" />
     {{-- <link rel="stylesheet" href="{{ asset('backend/plugins/toastr/toastr.min.css') }}"> --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <title>{{ $title ?? 'My App' }}</title>
+    <title>{{ $title ?? 'Dashboard' }}</title>
     <livewire:styles />
 </head>
 <body>
@@ -51,5 +52,6 @@
     {{-- <script src="{{ asset('assets/js/dashboard.js') }}"></script> --}}
     {{-- <script src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
+    @yield('scripts')
 </body>
 </html>

@@ -14,9 +14,10 @@
                   <thead>
                       <th>#</th>
                       <th>Tên sản phẩm</th>
-                      <th>Mã màu</th>
+                      <th>Danh mục</th>
+                      <th>Image</th>
                       <th>Mô tả</th>
-                      {{-- <th class="text-center">Hành động</th> --}}
+                      <th class="text-center">Hành động</th>
                   </thead>
                     @isset($products)
                         @if ($products->count()>0)
@@ -25,14 +26,15 @@
                               <tr>
                                   <td>{{ $i }}</td>
                                   <td>{{ $item->name }}</td>
+                                  <td>{{ $item->category->name }}</td>
                                   <td>
                                     <img src="{{ asset('storage/'.$item->image) }}" alt="lỗi ảnh" width="200px">
                                   </td>
                                   <td>{{ $item->description }}</td>
-                                  {{-- <td class="text-center">
+                                  <td class="text-center">
                                       <a  href="" wire:click.prevent="edit({{ $item }})" class="text-warning me-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                       <a href="" wire:click.prevent="delete({{ $item->id }})" onclick="return confirm('Bạn có chắc chắn xoá sản phẩm này.')" class="text-danger"><i class="ti ti-trash"></i></a>
-                                  </td> --}}
+                                  </td>
                               </tr>
                               @php $i++ @endphp
                           @endforeach
@@ -49,4 +51,81 @@
           </div>
         </div>
       </div>
+
+
+    {{-- Model --}}
+    <div class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            @if ($showEditModal)
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa sản phẩm</h1>
+            @else
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm sản phẩm</h1>
+            @endif
+
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form autocomplete="off" wire:submit.prevent="{{ $showEditModal ? 'updateProduct' : 'createProduct'}}">
+                <div class="modal-body">
+                    <div class="form-floating mb-1">
+                        <input type="text" wire:model.defer="state.name"  class="form-control @error('name') is-invalid @enderror" id="floatingInput" placeholder="Nhập tên màu sắc" >
+                        <label for="floatingInput">Tên sản phẩm</label>
+                        @error('name')
+                        <span class="text-danger ">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mt-3 mt-1">
+                        <select wire:model.defer="state.category_id" id="category_id" class="form-select" aria-label="Category">
+                            <option value="">--Chọn danh mục--</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            {{-- <option value="{{ $cate->id }}" {{ old('category_id') == $cate->id ? 'selected' : '' }}>{{ $cate->name }}</option> --}}
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                        <span class="text-danger ">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-1 mt-3">
+                        <input type="file"  wire:model.defer="state.image" class="form-control">
+                        @error('image')
+                        <span class="text-danger ">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mt-3">
+                        <textarea wire:model.defer="state.description" class="form-control @error('description') is-invalid @enderror" id="floatingPassword" placeholder="Mô tả ngắn"></textarea>
+                        <label for="floatingPassword">Mô tả ngắn</label>
+                        @error('description')
+                            <span class="text-danger ">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-xmark me-1"></i>Cancel</button>
+                    @if ($showEditModal )
+                        <button type="submit" class="btn btn-primary"> <i class="fa fa-save me-1"></i> Save changes</button>
+                    @else
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save me-1"></i> Save</button>
+                    @endif
+                </div>
+               
+
+            </form>
+
+        </div>
+        </div>
+    </div>
 </div>
+

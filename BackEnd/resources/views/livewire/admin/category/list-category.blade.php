@@ -13,7 +13,7 @@
                 <table class="table table-striped">
                     <thead>
                         <th>#</th>
-                        <th>Danh mục</th>
+                        <th>Tên danh mục</th>
                         <th>Mô tả</th>
                         <th class="text-center">Hành động</th>
                     </thead>
