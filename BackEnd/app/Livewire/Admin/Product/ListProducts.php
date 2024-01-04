@@ -19,7 +19,7 @@ class ListProducts extends Component
     protected $paginationTheme = 'bootstrap';
     public $showEditModal = false;
     public $item;
-    public  $productId;
+    public $productId;
     public $state = [];
     public $selectedCategory;
     public $categories;
@@ -48,16 +48,15 @@ class ListProducts extends Component
                 'description.required' => 'Không bỏ trống vui lòng nhập description',
                 'image.required' => 'Không bỏ trống vui lòng tải image lên',
                 'category_id.required' => "Chọn danh mục",
-                'image.image' => 'Only enter file image',
-                'image.mimes' => 'Only enter jpeg, png, jpg, gif',
-                'image.max' => 'Image < 2Mb',
+                'image.image' => 'Định dạng không hợp lệ, vui lòng chọn một file hình ảnh.',
+                'image.mimes' => 'Chỉ chấp nhận các định dạng ảnh: jpeg, png, jpg, gif.',
+                'image.max' => 'Dung lượng tối đa cho phép là 2048 KB.',
             ]
         )->validate();
-        $imagePath = $validatedData['image']->storeAs('images', uniqid() . '.' . $validatedData['image']->getClientOriginalExtension(), 'public');
-
-        // Thêm dữ liệu hình ảnh vào mảng dữ liệu được tạo
-        $validatedData['image'] = $imagePath;
-
+        if (isset($this->state['image'])) {
+            $imagePath = $this->state['image']->store('images', 'public');
+            $validatedData['image'] = $imagePath;
+        }
         Product::create($validatedData);
         $this->dispatch('hide-form', [' Thêm thành công !']);
     }
@@ -71,13 +70,15 @@ class ListProducts extends Component
 
     public function updateProduct()
     {
+        // dd($this->item->image);
+
         $validatedData = Validator::make(
             $this->state,
             [
                 'name' => 'required',
                 'description' => 'required|string',
                 'category_id' => 'required|exists:categories,id',
-                'image' => 'mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ],
             [
                 'name.required' => 'Không bỏ trống vui lòng nhập name',
@@ -88,16 +89,19 @@ class ListProducts extends Component
                 'image.max' => 'Kích thước ảnh không được lớn hơn 2MB',
             ]
         )->validate();
+        if (isset($this->item->image)) {
+            // Xử lý tải lên và lưu trữ hình ảnh
+            $imagePath = $this->state['image']->store('images', 'public');
+            $validatedData['image'] = $imagePath;
 
-        if ($validatedData['image'] ?? null) { // Kiểm tra xem có hình ảnh mới không
-            $imagePath = $validatedData['image']->storeAs('images', uniqid() . '.' . $validatedData['image']->getClientOriginalExtension(), 'public');
-
-            $this->item->image = $imagePath;
+            // Xóa ảnh cũ nếu có
+            if ($this->item->image) {
+                Storage::disk('public')->delete($this->item->image);
+            }
         } else {
-            $this->item->image = $this->item->image;
+            // Nếu không có ảnh mới, giữ lại ảnh cũ
+            $validatedData['image'] = $this->item->image;
         }
-
-        unset($validatedData['image']);
 
         $this->item->update($validatedData);
 
@@ -109,7 +113,10 @@ class ListProducts extends Component
     public function delete($productId)
     {
         $item = Product::find($productId);
-
+        // Xóa ảnh khỏi storage trước khi xóa sản phẩm
+        if ($item->image) {
+            Storage::disk('public')->delete($item->image);
+        }
         $item->delete();
         $this->dispatch('hide-form', [" Xoá thành công !"]);
         $this->reset();
