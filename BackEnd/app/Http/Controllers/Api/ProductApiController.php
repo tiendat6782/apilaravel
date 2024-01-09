@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductDetailResource;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -21,27 +22,12 @@ class ProductApiController extends Controller
     }
     public function detailProduct($id)
     {
-        try {
-            $product = Product::with('variants')->findOrFail($id);
+        $product = Product::with(['variants.size', 'variants.color'])->find($id);
 
-            // Chỉ lấy thông tin cần thiết từ mỗi biến thể (variants)
-            $variants = $product->variants->map(function ($variant) {
-                return [
-                    'size' => $variant->size,
-                    'color' => $variant->color,
-                    'price' => $variant->price,
-                ];
-            });
-
-            // Trả về thông tin chi tiết sản phẩm
-            return response()->json([
-                'id' => $product->id,
-                'name' => $product->name,
-                'variants' => $variants,
-            ]);
-        } catch (\Exception $e) {
-            // Xử lý nếu không tìm thấy sản phẩm
-            return response()->json(['error' => 'Product not found.'], 404);
+        if (!$product) {
+            return response()->json(['message' => 'Sản phẩm không tồn tại'], 404);
         }
+
+        return new ProductDetailResource($product);
     }
 }

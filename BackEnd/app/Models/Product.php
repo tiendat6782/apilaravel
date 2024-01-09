@@ -20,6 +20,11 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function variants()
+    {
+        return $this->hasMany(\App\Models\Variants::class);
+    }
+
     public function getCate()
     {
         $category = Category::find($this->category_id);
