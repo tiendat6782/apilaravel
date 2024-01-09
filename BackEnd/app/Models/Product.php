@@ -11,6 +11,7 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'name',
+        'price',
         'description',
         'image',
         // Add 'category_id' to the $fillable array
@@ -28,5 +29,4 @@ class Product extends Model
             return "Empty";
         }
     }
-    
 }

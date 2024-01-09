@@ -104,13 +104,11 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-floating mt-3">
-                        <textarea wire:model.defer="state.price" class="form-control @error('price') is-invalid @enderror" id="inputPrice" placeholder="Mô tả ngắn"></textarea>
-                        <label for="inputPrice">Giá mặc định</label>
+                    <div class="form-floating mb-1 mt-3">
+                        <input type="text" wire:model.defer="state.price" class="form-control @error('price') is-invalid @enderror" id="floatingInput" placeholder="Nhập tên màu sắc">
+                        <label for="floatingInput">Giá</label>
                         @error('price')
-                            <span class="text-danger ">
-                                {{ $message }}
-                            </span>
+                        <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-floating mt-3">
