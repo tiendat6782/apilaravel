@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Route;
 
 // use method get: api/product/
 Route::get('/product', [ProductApiController::class, 'index']);
+Route::get('/product/{id}', [ProductApiController::class, 'detailProduct']);
 Route::get('/category', [ProductApiController::class, 'getCategory']);
 
+Route::post('/addToCart/{productId}/{quantity}', [ProductApiController::class, 'addToCart'])->middleware('auth:sanctum');
 
 
 //Login & Register & Logout

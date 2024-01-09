@@ -11,7 +11,6 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ListVariantProduct extends Component
@@ -133,25 +132,5 @@ class ListVariantProduct extends Component
             compact('variants', 'product')
         )->layout('layouts.app');
     }
-    public function getCate()
-    {
-        if ($this->product) {
-            return $this->product->getCate();
-        }
-        return null;
-    }
-    public function getSize()
-    {
-        if ($this->variants) {
-            return $this->variants->getSize();
-        }
-        return null;
-    }
-    public function getColor()
-    {
-        if ($this->variants) {
-            return $this->variants->getColor();
-        }
-        return null;
-    }
+    
 }

@@ -11,6 +11,7 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'name',
+        'price',
         'description',
         'image',
         // Add 'category_id' to the $fillable array
@@ -19,6 +20,11 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function variants()
+    {
+        return $this->hasMany(\App\Models\Variants::class);
+    }
+
     public function getCate()
     {
         $category = Category::find($this->category_id);
@@ -28,5 +34,4 @@ class Product extends Model
             return "Empty";
         }
     }
-    
 }
