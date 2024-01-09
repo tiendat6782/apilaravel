@@ -15,6 +15,7 @@
                       <th>#</th>
                       <th>Tên sản phẩm</th>
                       <th>Danh mục</th>
+                      <th>Giá chung</th>
                       <th>Image</th>
                       <th>Mô tả</th>
                       <th class="text-center">Hành động</th>
@@ -27,6 +28,7 @@
                                   <td>{{ $i }}</td>
                                   <td>{{ $item->name }}</td>
                                   <td>{{ $item->category->name }}</td>
+                                  <td>{{ $item->price }}</td>
                                   <td>
                                     <img src="{{ asset('storage/'.$item->image) }}" alt="lỗi ảnh" width="200px">
                                   </td>
@@ -79,7 +81,7 @@
                         @enderror
                     </div>
 
-                    <div class="mt-3 mt-1">
+                    <div class="mb-1 mt-3">
                         <select wire:model.defer="state.category_id" id="category_id" class="form-select" aria-label="Category">
                             <option value="">--Chọn danh mục--</option>
                             @foreach ($categories as $category)
@@ -102,10 +104,18 @@
                         </span>
                         @enderror
                     </div>
-
                     <div class="form-floating mt-3">
-                        <textarea wire:model.defer="state.description" class="form-control @error('description') is-invalid @enderror" id="floatingPassword" placeholder="Mô tả ngắn"></textarea>
-                        <label for="floatingPassword">Mô tả ngắn</label>
+                        <textarea wire:model.defer="state.price" class="form-control @error('price') is-invalid @enderror" id="inputPrice" placeholder="Mô tả ngắn"></textarea>
+                        <label for="inputPrice">Giá mặc định</label>
+                        @error('price')
+                            <span class="text-danger ">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-floating mt-3">
+                        <textarea wire:model.defer="state.description" class="form-control @error('description') is-invalid @enderror" id="inputDescription" placeholder="Mô tả ngắn"></textarea>
+                        <label for="inputDescription">Mô tả ngắn</label>
                         @error('description')
                             <span class="text-danger ">
                                 {{ $message }}

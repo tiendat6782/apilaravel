@@ -12,6 +12,7 @@
                         <thead>
                             <th>Name</th>
                             <th>Danh mục</th>
+                            <th>Giá</th>
                             <th>Ảnh</th>
                             <th class="col-6">Mô tả</th>
                         </thead>
@@ -20,6 +21,7 @@
                             @if(isset($product))
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->getCate() }}</td>
+                                <td>{{ $product->price }}</td>
                                 <td>
                                     <img src="{{ asset('storage/'.$product->image) }}" alt="" width="200px" height="200px">
                                 </td>
@@ -34,9 +36,42 @@
             </div>
         </div>
     </div>
-    <button wire:click.prevent="showModelCreate" class="btn btn-secondary"><i class="fa-solid fa-plus"></i> Thêm biến thế</button>
+    <div>
+        <button wire:click.prevent="showModelCreate" class="btn btn-secondary"><i class="fa-solid fa-plus"></i> Thêm biến thế</button>
+    </div>
+    <div class="mt-3 col-lg-12 d-flex align-items-strech">
+        <div class="card w-100">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <th>Màu</th>
+                        <th>Size</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Action</th>
+                    </thead>
+                    <br>
+                    <tbody class="align-middle">
+                            @foreach ($variants as $item)
+                                <tr>
+                                    <td>{{ $item->getColor() }}</td>
+                                    <td>{{ $item->getSize() }}</td>
+                                    <td>
+                                        <img src="{{ asset('storage/'.$item->image) }}" alt="" width="300px">
+                                    </td>
+                                    <td>{{ $item->price }}</td>
+                                    <td>
+                                      <a href="" wire:click.prevent="delete({{ $item->id }})" onclick="return confirm('Bạn có chắc chắn xoá sản phẩm này.')" class="text-danger"><i class="ti ti-trash"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
 
-
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     {{-- modal --}}
     <div class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>

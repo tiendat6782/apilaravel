@@ -12,11 +12,13 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ListVariantProduct extends Component
 {
     use WithFileUploads;
     public $productId;
+    public $variantId;
     public $categories;
     public $showEditModal = false;
     public $state = [];
@@ -100,11 +102,21 @@ class ListVariantProduct extends Component
     }
 
 
-
-
     public function mount($id)
     {
         $this->productId = $id;
+    }
+    public function delete($variantId)
+    {
+        $item = Variants::find($variantId);
+        // Xóa ảnh khỏi storage trước khi xóa sản phẩm
+        if ($item->image) {
+            Storage::disk('public')->delete($item->image);
+        }
+        $item->delete();
+        $this->dispatch('hide-form');
+        $this->dispatch('success', [" Xoá thành công !"]);
+
     }
 
     public function render()
@@ -123,12 +135,23 @@ class ListVariantProduct extends Component
     }
     public function getCate()
     {
-        // Assuming getCate is a method in your Product model
-        // You can customize this based on your actual implementation
         if ($this->product) {
             return $this->product->getCate();
         }
-
+        return null;
+    }
+    public function getSize()
+    {
+        if ($this->variants) {
+            return $this->variants->getSize();
+        }
+        return null;
+    }
+    public function getColor()
+    {
+        if ($this->variants) {
+            return $this->variants->getColor();
+        }
         return null;
     }
 }

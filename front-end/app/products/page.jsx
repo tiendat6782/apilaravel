@@ -24,7 +24,7 @@ const Page = async () => {
       <ProductGrid>
         {res &&
           res.data.map((product) => (
-            <ProductCard key={product.id} imgSrc={`/../../../BackEnd/public/storage/images/${product.image}`} />
+            <ProductCard price={product.price} name={product.name} key={product.id} id = {product.id} imgSrc={product.image} />
           ))}
       </ProductGrid>
     </>

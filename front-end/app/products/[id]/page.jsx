@@ -2,25 +2,41 @@ import ImagePreview from "@/components/shared/ImagePreview";
 import ProductColors from "@/components/shared/ProductColors";
 import ProductDetails from "@/components/shared/ProductDetails";
 import ProductTotal from "@/components/shared/ProductTotal";
+import { getProducts } from "@/lib/action/product.action";
 import Image from "next/image";
 import React from "react";
 
-const Page = () => {
+const Page = async ({ params }) => {
+  const products = await getProducts();
+
+  const currentProduct = products?.data.filter(
+    (product) => product.id === parseInt(params.id)
+  );
+  console.log(currentProduct);
+
   return (
     <>
-      <div className="relative mt-5 overflow-hidden">
-        <Image
-          className="h-[700px] w-full object-cover"
-          alt="product"
-          src="https://images.unsplash.com/photo-1605348532760-6753d2c43329?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          width={700}
-          height={700}
-        />
-        <ProductColors />
-        <ImagePreview />
+      <div className="flex flex-col gap-10 lg:flex-row">
+        {" "}
+        <div className="relative mt-5 overflow-hidden ">
+          <Image
+            className="h-[700px] w-full object-cover"
+            alt="product"
+            src={currentProduct[0].image}
+            width={700}
+            height={700}
+          />
+          <ProductColors />
+          <ImagePreview />
+        </div>
+        <div>
+          <ProductDetails
+            name={currentProduct[0].name}
+            description={currentProduct[0].description}
+          />
+          <ProductTotal price={currentProduct[0].price} />
+        </div>
       </div>
-      <ProductDetails />
-      <ProductTotal />
     </>
   );
 };

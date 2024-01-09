@@ -40,11 +40,14 @@ class ListProducts extends Component
             [
                 'name' => 'required',
                 'description' => 'required|string',
-                'category_id' => 'required|exists:categories,id', // Kiểm tra xem category_id có tồn tại trong bảng categories hay không
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Kiểm tra và xác thực tệp hình ảnh (ví dụ: JPEG, PNG) và giới hạn kích thước tệp là 2MB (2048 KB)
+                'price' => 'required|numeric',
+                'category_id' => 'required|exists:categories,id', 
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
             ],
             [
                 'name.required' => 'Không bỏ trống vui lòng nhập name',
+                'price.required' => 'Không bỏ trống vui lòng nhập giá',
+                'price.numeric' => 'Chỉ nhập số',
                 'description.required' => 'Không bỏ trống vui lòng nhập description',
                 'image.required' => 'Không bỏ trống vui lòng tải image lên',
                 'category_id.required' => "Chọn danh mục",
@@ -78,11 +81,14 @@ class ListProducts extends Component
             [
                 'name' => 'required',
                 'description' => 'required|string',
+                'price' => 'required|numeric',
                 'category_id' => 'required|exists:categories,id',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ],
             [
                 'name.required' => 'Không bỏ trống vui lòng nhập name',
+                'price.required' => 'Không bỏ trống vui lòng nhập giá',
+                'price.numeric' => 'Chỉ nhập số',
                 'description.required' => 'Không bỏ trống vui lòng nhập description',
                 'category_id.required' => 'Chọn danh mục',
                 'image.image' => 'Chỉ chấp nhận tệp hình ảnh',
