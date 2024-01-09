@@ -2,16 +2,16 @@ import React from "react";
 import { Button } from "../ui/button";
 import { ShoppingBag } from "lucide-react";
 
-const ProductTotal = () => {
+const ProductTotal = ({price}) => {
   return (
-    <div className=" background_primary fixed bottom-0 right-0 flex w-full items-center gap-3 rounded-lg p-3">
+    <div className=" background_primary w-fit flex mt-10 items-center gap-3 rounded-lg p-3">
       <p className="text_primary whitespace-nowrap text-lg font-semibold">
-        1.230.000 vnđ
+       {price}$
       </p>
       <Button variant="secondary" size="sm">
         <ShoppingBag className="w-4" />
       </Button>
-      <Button className="w-full  " size="sm">
+      <Button className="w-full max-w-fit " size="sm">
         Mua hàng
       </Button>
     </div>

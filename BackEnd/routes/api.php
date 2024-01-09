@@ -5,8 +5,9 @@ use App\Http\Controllers\Api\ProductApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// use method get: api/product/(id)
+// use method get: api/product/
 Route::get('/product', [ProductApiController::class, 'index']);
+Route::get('/category', [ProductApiController::class, 'getCategory']);
 
 
 

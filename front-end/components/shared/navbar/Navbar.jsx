@@ -4,8 +4,8 @@ import { ModeToggle } from "../ModeToggle";
 import GlobalSearch from "../search/GlobalSearch";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import AuthButton from "../AuthButton";
 
+import { UserButton } from "@clerk/nextjs";
 const Navbar = () => {
   return (
     <>
@@ -21,7 +21,7 @@ const Navbar = () => {
           Ruby Store
         </Link>
         <div className="flex_between">
-          <AuthButton />
+          <UserButton />
           <Link href="/cart">
             <ShoppingCart className="text_primary h-5 w-5" />
           </Link>

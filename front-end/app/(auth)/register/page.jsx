@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { createUser } from "@/lib/action/user.action";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -11,7 +12,9 @@ const Page = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    await createUser(data);
+  };
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       <div className="w-full max-w-[400px]">
@@ -35,27 +38,28 @@ const Page = () => {
             />
             {errors.username && <span>This field is required</span>}
             <input
+              type="text"
+              placeholder="Email"
+              className="border_primary rounded-lg border p-2"
+              {...register("email", { required: true })}
+            />
+            {errors.email && <span>This field is required</span>}
+            <input
               type="password"
               placeholder="Mật khẩu"
               className="border_primary rounded-lg border p-2"
               {...register("password", { required: true })}
             />
             {errors.password && <span>This field is required</span>}
-            <input
-              type="password"
-              placeholder="Mật khẩu"
-              className="border_primary rounded-lg border p-2"
-              {...register("validatePassword", { required: true })}
-            />
-            {errors.validatePassword && <span>This field is required</span>}
+
             <Button className="" type="submit">
-              Đăng nhập
+              Đăng ký
             </Button>
           </div>
           <p className="mt-3">
-            Chưa có tài khoản?{" "}
+            Đã có tài khoản?{" "}
             <Link href="/register" className="underline">
-              Đăng ký
+              Đăng nhập
             </Link>
           </p>
         </form>
