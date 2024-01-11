@@ -4,7 +4,7 @@ import laravel from "laravel-vite-plugin";
 export default defineConfig({
     build: {
         root: "public",
-        outDir: "./public/dist",
+        outDir: "./public/dist/",
     },
     plugins: [
         laravel({
