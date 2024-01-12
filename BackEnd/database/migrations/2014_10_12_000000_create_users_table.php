@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->text('image')->default('storage/image/avatar-default.png');
+            $table->string('image')->default('storage/image/avatar-default.png'); // Sửa đổi kiểu dữ liệu thành string
             $table->string('password');
             $table->string('address')->nullable();
             $table->tinyInteger('role_id')->default(2);

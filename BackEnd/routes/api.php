@@ -38,13 +38,10 @@ Route::post('/logout', [AuthApiController::class, 'logout'])->middleware('auth:a
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/profile', [AuthApiController::class, 'showProfile']);
-    /*
-    
-    */
     Route::put('/profile/update', [AuthApiController::class, 'updateProfile']);
+    Route::get('/order_all', [OrderController::class, 'getListOrder']);
+    Route::post('/order', [OrderController::class, 'create']);
 });
-
-
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();

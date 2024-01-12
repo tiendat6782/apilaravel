@@ -16,6 +16,7 @@
                       <th>Tên sản phẩm</th>
                       <th>Danh mục</th>
                       <th>Giá chung</th>
+                      <th>Số lượng</th>
                       <th>Image</th>
                       <th>Mô tả</th>
                       <th class="text-center">Hành động</th>
@@ -29,6 +30,7 @@
                                   <td>{{ $item->name }}</td>
                                   <td>{{ $item->category->name }}</td>
                                   <td>{{ $item->price }}</td>
+                                  <td>{{ $item->amount }}</td>
                                   <td>
                                     <img src="{{ asset('storage/'.$item->image) }}" alt="lỗi ảnh" width="200px">
                                   </td>
@@ -108,6 +110,13 @@
                         <input type="text" wire:model.defer="state.price" class="form-control @error('price') is-invalid @enderror" id="floatingInput" placeholder="Nhập tên màu sắc">
                         <label for="floatingInput">Giá</label>
                         @error('price')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-1 mt-3">
+                        <input type="text" wire:model.defer="state.amount" class="form-control @error('amount') is-invalid @enderror" id="floatingInput" placeholder="Nhập tên màu sắc">
+                        <label for="floatingInput">Số lượng</label>
+                        @error('amount')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

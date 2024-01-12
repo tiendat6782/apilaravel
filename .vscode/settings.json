@@ -18,5 +18,8 @@
   "eslint.workingDirectories": [
     { "directory": "front-end" },
     { "directory": "BackEnd" }
-  ]
+  ],
+  "[blade]": {
+    "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+  }
 }

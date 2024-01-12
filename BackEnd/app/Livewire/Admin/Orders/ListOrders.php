@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Livewire\Admin\Product;
+namespace App\Livewire\Admin\Orders;
 
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Title;
@@ -11,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
-class ListProducts extends Component
+class ListOrders extends Component
 {
     use WithPagination;
     use WithFileUploads;
@@ -22,7 +24,7 @@ class ListProducts extends Component
     public $productId;
     public $state = [];
     public $selectedCategory;
-    public $categories;
+    public $statusOrders;
 
     #[Title('Product')]
 
@@ -66,7 +68,7 @@ class ListProducts extends Component
         $this->dispatch('hide-form');
         $this->dispatch('success', ['Thêm sản phẩm thành công']);
     }
-    public function edit(Product $item)
+    public function edit(Order $item)
     {
         $this->showEditModal = true;
         $this->item = $item;
@@ -74,53 +76,21 @@ class ListProducts extends Component
         $this->dispatch('show-form');
     }
 
-    public function updateProduct()
+    public function updateStatus()
     {
-        // dd($this->item->image);
-
         $validatedData = Validator::make(
             $this->state,
             [
-                'name' => 'required',
-                'description' => 'required|string',
-                'price' => 'required|numeric',
-                'amount' => 'required|numeric',
-                'category_id' => 'required|exists:categories,id',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'status' => 'required',
             ],
             [
-                'name.required' => 'Không bỏ trống vui lòng nhập name',
-                'price.required' => 'Không bỏ trống vui lòng nhập giá',
-                'amount.required' => 'Không bỏ trống vui lòng nhập số lượng đơn hàng',
-                'price.numeric' => 'Chỉ nhập số',
-                'description.required' => 'Không bỏ trống vui lòng nhập description',
-                'category_id.required' => 'Chọn danh mục',
-                'image.image' => 'Chỉ chấp nhận tệp hình ảnh',
-                'image.mimes' => 'Chỉ chấp nhận các định dạng: jpeg, png, jpg, gif',
-                'image.max' => 'Kích thước ảnh không được lớn hơn 2MB',
+                'status.required' => 'Chọn trạng thái',
             ]
         )->validate();
-        if (isset($this->item->image)) {
-            // Xử lý tải lên và lưu trữ hình ảnh
-            $imagePath = $this->state['image']->store('images', 'public');
-            $validatedData['image'] = $imagePath;
-
-            // Xóa ảnh cũ nếu có
-            if ($this->item->image) {
-                Storage::disk('public')->delete($this->item->image);
-            }
-        } else {
-            // Nếu không có ảnh mới, giữ lại ảnh cũ
-            $validatedData['image'] = $this->item->image;
-        }
-
         $this->item->update($validatedData);
-
         $this->dispatch('hide-form');
-        $this->dispatch('success', ["Sửa thành công!"]);
+        $this->dispatch('success', ["Thay đổi thành công!"]);
     }
-
-
 
     public function delete($productId)
     {
@@ -137,10 +107,28 @@ class ListProducts extends Component
     }
     public function render()
     {
-        $this->categories = Category::all();
-        $products = Product::latest()->paginate(10);
-
-        return view('livewire.admin.product.list-products', compact('products'))
+        $this->statusOrders = [
+            0 => 'Chờ xác nhận',
+            1 => 'Xác nhận',
+            2 => 'Đang vận chuyển',
+            3 => 'Đã vận chuyển',
+        ];
+        $orders = Order::with('orderDetails', 'user')->get();
+        $data = [];
+        foreach ($orders as $order) {
+            $userInfo = $order->user;
+            $orderDetails = $order->orderDetails;
+            foreach ($orderDetails as $orderDetail) {
+                $productInfo = $orderDetail->product;
+                $data[] = [
+                    'user' => $userInfo,
+                    'order' => $order,
+                    'orderDetail' => $orderDetail,
+                    'product' => $productInfo,
+                ];
+            }
+        }
+        return view('livewire.admin.orders.list-orders', compact('data'))
             ->layout('layouts.app');
     }
 }

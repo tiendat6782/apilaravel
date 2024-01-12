@@ -51,6 +51,9 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->description = $request->description;
         $product->image = $image;
+        $product->price = $request->price;
+        $product->amount = $request->amount;
+
         $product->save();
         return redirect()->route('admin.product.index')->with(['success' => 'Sản phẩm đã được thêm.']);
     }
@@ -96,6 +99,8 @@ class ProductController extends Controller
             "name" => $request->name,
             "description" => $request->description,
             "image" => $image,
+            "price" => $request->price,
+            "amount" => $request->amount,
         ]);
         return redirect()->route('admin.product.index')->with(['success' => 'Cập nhật sản phẩm thành công!']);
     }
@@ -129,7 +134,7 @@ class ProductController extends Controller
         $variant = Variant::where('product_id', $id)->get();
         $size = Size::all();
         $color = Color::all();
-        $product = Product::find($id); 
+        $product = Product::find($id);
         return view('admin.product.variant', compact('color', 'size', 'product', 'variant'));
     }
 
@@ -218,29 +223,29 @@ class ProductController extends Controller
         return redirect()->route('product.variant', ['id' => $product->id])->with(['success' => 'Cập nhật biến thể thành công']);
     }
     public function deleteVariant(string $id, string $variantId)
-{
-    // Tìm sản phẩm và biến thể tương ứng
-    $product = Product::find($id);
-    $variant = Variant::find($variantId);
+    {
+        // Tìm sản phẩm và biến thể tương ứng
+        $product = Product::find($id);
+        $variant = Variant::find($variantId);
 
-    // Kiểm tra xem biến thể có tồn tại không
-    if (!$variant) {
-        return redirect()->back()->with(['error' => 'Biến thể không tồn tại']);
+        // Kiểm tra xem biến thể có tồn tại không
+        if (!$variant) {
+            return redirect()->back()->with(['error' => 'Biến thể không tồn tại']);
+        }
+
+        // Kiểm tra xem biến thể có thuộc sản phẩm không
+        if ($variant->product_id != $product->id) {
+            return redirect()->back()->with(['error' => 'Biến thể không thuộc sản phẩm']);
+        }
+
+        // Xóa hình ảnh của biến thể (nếu có)
+        if ($variant->image) {
+            Storage::delete('/public/' . $variant->image);
+        }
+
+        // Xóa biến thể
+        $variant->delete();
+
+        return redirect()->back()->with(['success' => 'Xóa biến thể thành công']);
     }
-
-    // Kiểm tra xem biến thể có thuộc sản phẩm không
-    if ($variant->product_id != $product->id) {
-        return redirect()->back()->with(['error' => 'Biến thể không thuộc sản phẩm']);
-    }
-
-    // Xóa hình ảnh của biến thể (nếu có)
-    if ($variant->image) {
-        Storage::delete('/public/' . $variant->image);
-    }
-
-    // Xóa biến thể
-    $variant->delete();
-
-    return redirect()->back()->with(['success' => 'Xóa biến thể thành công']);
-}
 }

@@ -12,6 +12,7 @@ class Product extends Model
         'category_id',
         'name',
         'price',
+        'amount',
         'description',
         'image',
         // Add 'category_id' to the $fillable array
