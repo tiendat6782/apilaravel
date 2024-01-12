@@ -1,0 +1,20 @@
+@keyframes bouncedIn {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ani {
+  animation: bouncedIn 1000ms ease-in-out 100ms 1 direction fill-mode;
+}

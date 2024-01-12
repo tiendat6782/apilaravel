@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .nike {
+    mask: url("../assets/icon/svg/brand/nike.svg") no-repeat center;
+    -webkit-mask: url("../assets/icon/svg/brand/nike.svg") no-repeat center;
+  }
+}
